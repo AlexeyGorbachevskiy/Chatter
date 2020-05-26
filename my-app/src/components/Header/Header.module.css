@@ -1,0 +1,66 @@
+
+.header {
+    grid-area: header;
+
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.wrap {
+    display: grid;
+    grid-template: "logo login" 1fr/12% 1fr;
+}
+@media(max-width:867px){
+    .wrap{
+        grid-template: "logo login" 1fr/104px 1fr;
+    }
+}
+
+.logo {
+    display: flex;
+    grid-area: logo;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    /*overflow: hidden;*/
+    /*background: url("../img/logo.png") center no-repeat;*/
+    /*background-size: contain;*/
+}
+
+.logo_img {
+
+    /*flex:0 1 auto;*/
+    width: 100%;
+    height: auto;
+}
+
+
+
+.login {
+    grid-area: login;
+    margin-right: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.item {
+    margin-left: 50px;
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: 600;
+    transition: color;
+    transition-duration: 500ms;
+    font-family: -apple-system;
+}
+
+
+.item:first-child {
+    margin-left: 0;
+}
+
+.item:hover, .item:active, .item:focus {
+    cursor: pointer;
+    color: #f84545;
+}

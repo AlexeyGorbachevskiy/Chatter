@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.buttons_wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0;
+}
+
+.like p {
+    font-weight: 600;
+    transition: color;
+    transition-duration: 500ms;
+
+
+}
+
+.like p:hover {
+    cursor: pointer;
+    color: #1616d5;
+
+}
+
+/*it would be nice to use Scss (mixin) here */
+.change_button {
+    margin-top: 10px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    background-color: #000000;
+    border-color: #000000;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 3px;
+    align-self: flex-end;
+}
+
+.change_button:hover {
+    box-shadow: 0px 0px 5px 1px #00C;
+    opacity: 0.9;
+}
+
+/*it would be nice to use Scss (mixin) here */
+.remove_button {
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    background-color: #000000;
+    border-color: #000000;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 3px;
+    align-self: flex-end;
+}
+
+.remove_button:hover {
+    box-shadow: 0px 0px 5px 1px #00C;
+    opacity: 0.9;
+}
+
