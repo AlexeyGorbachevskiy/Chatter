@@ -23,6 +23,7 @@ function Post(props: PostPropsType) {
                             <button className={obj.change_button}
                                     value={"Change"}>Change
                             </button>
+                            {/*use map/filter, useState*/}
                             <button className={obj.remove_button}
                                     value={"Remove"}>Remove
                             </button>
