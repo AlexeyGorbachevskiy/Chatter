@@ -4,11 +4,18 @@
 }
 
 
+.ava {
+    width: 100%;
+    height: 100%;
+    /*border-radius: 50px;*/
+}
+
 .buttons_wrapper {
     display: flex;
     justify-content: space-between;
     margin: 0;
     padding: 0;
+    margin-bottom: 10px;
 }
 
 .like p {

@@ -17,8 +17,6 @@
     font-size: 20px;
     line-height: 40px;
     font-weight: 600;
-    transition: color;
-    transition-duration: 500ms;
     font-family: -apple-system;
 }
 
@@ -26,12 +24,23 @@
     margin-top: 12%;
 }
 
-.item:hover, .item:active, .item:focus{
-    cursor: pointer;
-    color: #f84545;
-}
 
 .link{
     margin: 0;
     padding: 0;
+    text-decoration: none;
+    color: #ffffff;
+    transition: color;
+    transition-duration: 500ms;
+}
+
+/*.link:active, .link:focus*/
+.link:hover{
+    cursor: pointer;
+    color: #f84545;
+}
+
+.item .activeLink{
+    cursor: pointer;
+    color: #f84545;
 }

@@ -6,7 +6,6 @@
     min-height: 100vh;
     background: url("img/bright.jpg") center no-repeat;
     background-size: cover;
-
     display: grid;
     grid-template: "header header"  "nav content" 1fr/12% 1fr;
 }
@@ -16,7 +15,6 @@
     }
 
 }
-
 
 
 
