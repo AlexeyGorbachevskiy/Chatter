@@ -1,25 +1,15 @@
 import React from 'react';
 import obj from './Messages.module.css';
-import {NavLink} from "react-router-dom";
+import Dialog_item from "./Dialog_Item/Dialog_Item";
+import Message_item from "./Message_Item/Message_item";
+import {AppPropsType, DialogsDataArray, MessagesDataArray} from "../../redux/state";
 
+function Messages(props:AppPropsType) {
 
-function Messages() {
-
-    let dialogsData = [
-        {id: 1, name: "Alex"},
-        {id: 2, name: "Olga"},
-        {id: 3, name: "Boris"}
-    ];
-    let messagesData = [
-        {id: 1, message: "Hello, how are you?"},
-        {id: 2, message: "I am okay. How are you?"},
-        {id: 3, message: "What's your favorite programming language?"}
-    ];
-
-    let messageElements = messagesData.map((t) => {
+    let messageElements = props.messagesPage?.messagesData.map((t:MessagesDataArray) => {
         return <Message_item message={t.message}/>
     });
-    let dialogElements = dialogsData.map((t) => {
+    let dialogElements = props.messagesPage?.dialogsData.map((t:DialogsDataArray) => {
         return <Dialog_item user_name={t.name} user_id={t.id}/>
     });
 
@@ -36,26 +26,6 @@ function Messages() {
 }
 
 
-type DialogPropsType = {
-    user_name: string,
-    user_id: number
-}
-
-function Dialog_item(props: DialogPropsType) {
-    let path = "/messages/" + props.user_id;
-    return <div className={obj.dialog_item + ' ' + obj.active}>
-        <NavLink to={path}>{props.user_name}</NavLink>
-    </div>
-}
-
-
-type MessagePropsType = {
-    message: string
-}
-
-function Message_item(props: MessagePropsType) {
-    return <div className={obj.message_item}>{props.message}</div>
-}
 
 
 export default Messages;

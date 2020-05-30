@@ -1,13 +1,15 @@
 import React from 'react';
 import obj from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {ProfilePagePropsType, PostDataArray} from "../../../redux/state";
 
-function MyPosts() {
-    let postData = [
-        {id: 1, message: "Hey, how you doing?", like: 5},
-        {id: 2, message: "What's cooking, good looking?", like: 8}
-    ];
-    let postElements = postData.map((t) => {
+function MyPosts(props:ProfilePagePropsType) {
+
+    // let postData = [
+    //     {id: 1, message: "Hey, how you doing?", like: 5},
+    //     {id: 2, message: "What's cooking, good looking?", like: 8}
+    // ];
+    let postElements = props.postData?.map((t:PostDataArray) => {
         return <Post message={t.message} like={t.like}/>
     });
 

@@ -6,6 +6,7 @@ function Nav() {
     return (
         <nav className={obj.nav}>
             <div className={obj.item}><NavLink to="/profile" activeClassName={obj.activeLink} className={obj.link}>Profile</NavLink></div>
+            <div className={obj.item}><NavLink to="/friends" activeClassName={obj.activeLink} className={obj.link}>Friends</NavLink></div>
             <div className={obj.item}><NavLink to="/messages" activeClassName={obj.activeLink} className={obj.link}>Messages</NavLink></div>
             <div className={obj.item}><NavLink to="/news" activeClassName={obj.activeLink} className={obj.link}>News</NavLink></div>
             <div className={obj.item}><NavLink to="/music" activeClassName={obj.activeLink} className={obj.link}>Music</NavLink></div>

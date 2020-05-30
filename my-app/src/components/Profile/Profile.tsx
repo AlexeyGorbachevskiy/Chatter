@@ -3,12 +3,15 @@ import obj from './Profile.module.css';
 import avatar from '../../img/avatar.png';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {AppPropsType} from "../../redux/state";
 
-function Profile() {
+
+function Profile(props:AppPropsType) {
+
     return (
         <div className={obj.content}>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts postData={props.profilePage?.postData}/>
         </div>
     );
 }

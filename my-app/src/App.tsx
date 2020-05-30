@@ -8,19 +8,25 @@ import Messages from "./components/Messages/Messages";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {BrowserRouter, Route} from "react-router-dom";
+import Friends from "./components/Friends/Friends";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {StatePropsType} from "./redux/state";
 
-function App() {
+
+function App(props: StatePropsType) {
     return (
         <BrowserRouter>
             <div className='container'>
                 <Header/>
                 <Nav/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/messages" component={Messages}/>
-                <Route path="/news" component={News}/>
-                <Route path="/music" component={Music}/>
-                <Route path="/settings" component={Settings}/>
+                <Route exact path="/" render={() => <Redirect to={"/profile"}/>}/>
+                <Route path="/profile" render={() => <Profile profilePage={props.state.profilePage}/>}/>
+                <Route path="/friends" render={() => <Friends/>}/>
+                <Route path="/messages" render={() => <Messages messagesPage={props.state.messagesPage}/>}/>
+                <Route path="/news" render={() => <News/>}/>
+                <Route path="/music" render={() => <Music/>}/>
+                <Route path="/settings" render={() => <Settings/>}/>
+                {/*<Route path="/profile" component={Profile}/>*/}
             </div>
         </BrowserRouter>
     );
