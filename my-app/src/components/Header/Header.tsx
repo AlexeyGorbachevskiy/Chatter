@@ -1,6 +1,5 @@
 import React from 'react';
 import obj from './Header.module.css';
-import logo from '../../img/logo.png';
 import {NavLink} from "react-router-dom";
 
 function Header() {
@@ -9,7 +8,7 @@ function Header() {
                 <div className={obj.wrap}>
                     <div className={`${obj.logo}`}>
                         <NavLink className={obj.logo_link} to="/profile">
-                            <img className={obj.logo_img} src={logo} />
+                            <img className={obj.logo_img} src={'img/logo.png'} />
                         </NavLink>
                     </div>
 

@@ -17,17 +17,27 @@ export type MessagesDataArray = {
     message: string
 }
 
-export type ProfilePagePropsType={
+export type ProfilePagePropsType = {
     postData?: Array<PostDataArray>
 }
 
-export type MessagesPagePropsType={
+export type MessagesPagePropsType = {
     messagesData: Array<MessagesDataArray>
     dialogsData: Array<DialogsDataArray>
 }
 
-export type AppPropsType= {
-    profilePage?:ProfilePagePropsType
+export type FriendsDataArray = {
+    id?: number
+    user_name: string
+    img_path: string
+}
+export type FriendPagePropsType = {
+    friendData: Array<FriendsDataArray>
+}
+
+export type AppPropsType = {
+    profilePage?: ProfilePagePropsType
+    friendPage?: FriendPagePropsType
     messagesPage?: MessagesPagePropsType
 }
 
@@ -36,13 +46,20 @@ export type StatePropsType = {
 }
 
 
-
-
 let state = {
     profilePage: {
         postData: [
             {id: 1, message: "Hey, how you doing?", like: 5},
             {id: 2, message: "What's cooking, good looking?", like: 8}
+        ]
+    },
+    friendPage: {
+        friendData: [
+            {id: 2, user_name: 'Jeff Bezos', img_path: 'Bezos.png'},
+            {id: 3, user_name: 'Elon Musk', img_path: 'Musk.png'},
+            {id: 4, user_name: 'Jordan Peterson', img_path: 'Peterson.webp'},
+            {id: 5, user_name: 'Mark Zuckerberg', img_path: 'Zuckerberg.png'},
+            {id: 6, user_name: 'Michael  Jordan', img_path: 'Jordan.png'}
         ]
     },
 

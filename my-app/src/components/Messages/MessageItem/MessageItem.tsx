@@ -6,9 +6,9 @@ type MessagePropsType = {
     message: string
 }
 
-function Message_item(props: MessagePropsType) {
+function MessageItem(props: MessagePropsType) {
     return <div className={obj.message_item}>{props.message}</div>
 }
 
 
-export default Message_item;
+export default MessageItem;

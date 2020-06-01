@@ -8,7 +8,7 @@ type DialogPropsType = {
     user_name: string
 }
 
-function Dialog_item(props: DialogPropsType) {
+function DialogItem(props: DialogPropsType) {
     let path = "/messages/" + props.user_id;
     return <div className={obj.dialog_item + ' ' + obj.active}>
         <NavLink to={path}>{props.user_name}</NavLink>
@@ -16,4 +16,4 @@ function Dialog_item(props: DialogPropsType) {
 }
 
 
-export default Dialog_item;
+export default DialogItem;

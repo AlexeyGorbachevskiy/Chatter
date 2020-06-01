@@ -1,6 +1,6 @@
 import React from 'react';
 import obj from './Profile.module.css';
-import avatar from '../../img/avatar.png';
+import avatar from '../../../public/img/avatar.png';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {AppPropsType} from "../../redux/state";

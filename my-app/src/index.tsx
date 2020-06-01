@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import state from "./redux/state";
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 
 ReactDOM.render(

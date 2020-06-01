@@ -1,0 +1,52 @@
+.friend_item_container {
+    height: 114px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    border-bottom: grey 1px solid;
+
+}
+
+.underline {
+    border: none;
+    background-color: grey;
+    height: 1px;
+}
+
+.img_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ava {
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+}
+
+.name {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.name h2 {
+    color: #34d9bf;
+}
+
+.to_messages{
+    margin-top: 10px;
+}
+
+.to_messages .link {
+    color: white;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #ffffff;
+}

@@ -9,6 +9,7 @@
 
 .old_post_item{
     margin-left: 5px;
+    /*background-color: black;*/
 }
 .img_wrapper{
     margin-top: 21px;
@@ -49,15 +50,15 @@
 /*it would be nice to use Scss (mixin) here */
 .change_button {
     margin-top: 10px;
-    width: 100px;
-    height: 35px;
+    width: 70px;
+    height: 30px;
     cursor: pointer;
     background-color: #000000;
     border-color: #000000;
-    font-size: 18px;
     color: #ffffff;
     border-radius: 3px;
     align-self: flex-end;
+    font-size: 16px;
 }
 
 .change_button:hover {
@@ -69,15 +70,15 @@
 .remove_button {
     margin-top: 10px;
     margin-left: 10px;
-    width: 100px;
-    height: 35px;
+    width: 90px;
+    height: 30px;
     cursor: pointer;
     background-color: #000000;
     border-color: #000000;
-    font-size: 18px;
     color: #ffffff;
     border-radius: 3px;
     align-self: flex-end;
+    font-size: 16px;
 }
 
 .remove_button:hover {

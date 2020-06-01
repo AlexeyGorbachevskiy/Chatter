@@ -12,7 +12,7 @@ function Post(props: PostPropsType) {
         <div className={obj.old_posts}>
 
             <div className={obj.img_wrapper}>
-                <img className={obj.ava} src={require('../../../../img/avatar.png')} alt="Avatar"/>
+                <img className={obj.ava} src={'/img/default.png'} alt="Avatar"/>
             </div>
 
             <div className={obj.old_post_item}>
@@ -26,11 +26,11 @@ function Post(props: PostPropsType) {
 
                         <div className={obj.extra_wrapper}>
                             <button className={obj.change_button}
-                                    value={"Change"}>Change
+                                    value={"Edit"}><i className="fa fa-edit"></i> Edit
                             </button>
                             {/*use map/filter, useState*/}
                             <button className={obj.remove_button}
-                                    value={"Remove"}>Remove
+                                    value={"Remove"}><i className="fa fa-trash"></i> Remove
                             </button>
                         </div>
                     </div>

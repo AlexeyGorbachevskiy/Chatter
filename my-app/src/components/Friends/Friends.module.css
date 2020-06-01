@@ -1,17 +1,12 @@
 .friends_container {
-    display: inline-grid;
-    grid-template-columns: 3fr 9fr;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .friends_list {
-    /*grid-area: b;*/
-    /*background: rgba(142, 135, 135, 0.9);*/
+    display: grid;
+    width: 550px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
 }
-
-
-.friend_profile {
-    /*background: rgba(0, 0, 0, 0.7);*/
-    color:#ffffff;
-
-}
-

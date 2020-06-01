@@ -9,6 +9,11 @@
     align-items: center;
 }
 
+.new_post{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .new_post_form {
     display: flex;
     flex-direction: column;
@@ -23,15 +28,15 @@
 
 .new_post_button {
     margin-top: 10px;
-    width: 100px;
-    height: 35px;
+    width: 80px;
+    height: 30px;
     cursor: pointer;
     background-color: #000000;
     border-color: #000000;
-    font-size: 18px;
     color: #ffffff;
     border-radius: 3px;
     align-self: flex-end;
+    font-size: 16px;
 
 }
 

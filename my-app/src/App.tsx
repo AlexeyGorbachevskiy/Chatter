@@ -21,7 +21,7 @@ function App(props: StatePropsType) {
                 <Nav/>
                 <Route exact path="/" render={() => <Redirect to={"/profile"}/>}/>
                 <Route path="/profile" render={() => <Profile profilePage={props.state.profilePage}/>}/>
-                <Route path="/friends" render={() => <Friends/>}/>
+                <Route path="/friends" render={() => <Friends friendPage={props.state.friendPage}/>}/>
                 <Route path="/messages" render={() => <Messages messagesPage={props.state.messagesPage}/>}/>
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>
