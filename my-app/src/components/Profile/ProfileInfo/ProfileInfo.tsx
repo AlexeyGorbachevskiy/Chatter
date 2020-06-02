@@ -6,7 +6,7 @@ function ProfileInfo() {
     return (
         <div className={obj.data_wrapper}>
             <div className={obj.ava_wrapper}>
-                <img className={obj.ava} src={'img/default.png'} alt="Avatar"/>
+                <img className={obj.ava} src={'img/default.png'} alt='Avatar'/>
             </div>
             <div className={obj.data}>
                 <div className={obj.data_header}>

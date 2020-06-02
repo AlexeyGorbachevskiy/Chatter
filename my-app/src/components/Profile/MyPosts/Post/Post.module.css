@@ -2,16 +2,17 @@
     margin: 0;
     padding: 0;
 }
-.old_posts{
-   display: flex;
+
+.old_posts {
+    display: flex;
     margin-right: 64px;
 }
 
-.old_post_item{
+.old_post_item {
     margin-left: 5px;
-    /*background-color: black;*/
 }
-.img_wrapper{
+
+.img_wrapper {
     margin-top: 21px;
     width: 64px;
     height: 64px;
@@ -22,7 +23,6 @@
     height: 100%;
     border-radius: 50px;
 }
-
 
 
 .buttons_wrapper {
@@ -47,7 +47,6 @@
 
 }
 
-/*it would be nice to use Scss (mixin) here */
 .change_button {
     margin-top: 10px;
     width: 70px;
@@ -66,7 +65,6 @@
     opacity: 0.9;
 }
 
-/*it would be nice to use Scss (mixin) here */
 .remove_button {
     margin-top: 10px;
     margin-left: 10px;

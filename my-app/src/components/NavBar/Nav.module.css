@@ -1,6 +1,4 @@
-.nav{
-    /*background-color: #000000;*/
-    /*opacity: 0.7;*/
+.nav {
     background: rgba(0, 0, 0, 0.7);
     grid-area: nav;
     color: #ffffff;
@@ -10,9 +8,7 @@
 }
 
 
-
-
-.item{
+.item {
     margin-bottom: 5%;
     font-size: 20px;
     line-height: 40px;
@@ -20,12 +16,12 @@
     font-family: -apple-system;
 }
 
-.item:first-child{
+.item:first-child {
     margin-top: 12%;
 }
 
 
-.link{
+.link {
     margin: 0;
     padding: 0;
     text-decoration: none;
@@ -35,7 +31,7 @@
 }
 
 /*.link:active, .link:focus*/
-.link:hover{
+.link:hover {
     cursor: pointer;
     color: #f84545;
     border: white 1px solid;
@@ -43,9 +39,7 @@
     padding: 3px;
 }
 
-.item .activeLink{
+.item .activeLink {
     cursor: pointer;
     color: #f84545;
-    /*border: white 1px solid;*/
-    /*border-radius: 5px;*/
 }

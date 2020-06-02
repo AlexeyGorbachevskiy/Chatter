@@ -1,8 +1,8 @@
 import React from 'react';
 import obj from './Messages.module.css';
-import DialogItem from "./DialogItem/DialogItem";
-import MessageItem from "./MessageItem/MessageItem";
-import {AppPropsType, DialogsDataArray, MessagesDataArray} from "../../redux/state";
+import DialogItem from './DialogItem/DialogItem';
+import MessageItem from './MessageItem/MessageItem';
+import {AppPropsType, DialogsDataArray, MessagesDataArray} from '../../redux/state';
 
 function Messages(props:AppPropsType) {
 

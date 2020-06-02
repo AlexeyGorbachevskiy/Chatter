@@ -8,11 +8,12 @@
 
 .wrap {
     display: grid;
-    grid-template: "logo login" 1fr/12% 1fr;
+    grid-template: 'logo login' 1fr/12% 1fr;
 }
-@media(max-width:867px){
-    .wrap{
-        grid-template: "logo login" 1fr/104px 1fr;
+
+@media (max-width: 867px) {
+    .wrap {
+        grid-template: 'logo login' 1fr/104px 1fr;
     }
 }
 
@@ -22,18 +23,12 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    /*overflow: hidden;*/
-    /*background: url("../img/logo.png") center no-repeat;*/
-    /*background-size: contain;*/
 }
 
 .logo_img {
-
-    /*flex:0 1 auto;*/
     width: 100%;
     height: auto;
 }
-
 
 
 .login {

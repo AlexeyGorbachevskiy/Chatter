@@ -1,13 +1,13 @@
 import React from 'react';
 import obj from './Header.module.css';
-import {NavLink} from "react-router-dom";
+import {NavLink} from 'react-router-dom';
 
 function Header() {
     return (
         <header className={obj.header}>
                 <div className={obj.wrap}>
                     <div className={`${obj.logo}`}>
-                        <NavLink className={obj.logo_link} to="/profile">
+                        <NavLink className={obj.logo_link} to='/profile'>
                             <img className={obj.logo_img} src={'img/logo.png'} />
                         </NavLink>
                     </div>
