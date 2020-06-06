@@ -16,9 +16,9 @@ function Post(props: PostPropsType) {
             </div>
 
             <div className={obj.old_post_item}>
-                <form className={obj.old_post_form}>
+                <div className={obj.old_post_form}>
                     <div className={obj.user_name}><h4>Alexey Gorbachevskiy</h4></div>
-                    <textarea rows={4} cols={60} id='new_post_text_area' name='new_post_text_area'>
+                    <textarea className={obj.textarea} rows={4} cols={60} id='new_post_text_area' name='new_post_text_area'>
                         {props.message}
                             </textarea>
                     <div className={obj.buttons_wrapper}>
@@ -33,7 +33,7 @@ function Post(props: PostPropsType) {
                             </button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

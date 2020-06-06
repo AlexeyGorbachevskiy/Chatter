@@ -24,6 +24,13 @@
     border-radius: 50px;
 }
 
+.textarea {
+    word-break: break-word;
+    outline: none;
+    resize: none;
+    overflow: auto;
+}
+
 
 .buttons_wrapper {
     display: flex;

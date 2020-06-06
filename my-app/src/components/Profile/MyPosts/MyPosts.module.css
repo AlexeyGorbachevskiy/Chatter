@@ -26,6 +26,13 @@
     font-size: 35px;
 }
 
+.textarea {
+    word-break: break-word;
+    outline: none;
+    resize: none;
+    overflow: auto;
+}
+
 .new_post_button {
     margin-top: 10px;
     width: 80px;

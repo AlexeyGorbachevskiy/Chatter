@@ -2,80 +2,106 @@ import React from 'react';
 
 
 export type PostDataArray = {
-    id: number;
-    message: string;
-    like: number;
+    id: number
+    message: string
+    like: number
 }
 
-export type DialogsDataArray = {
-    id: number;
-    name: string;
-}
-
-export type MessagesDataArray = {
-    id: number;
-    message: string;
-}
-
-export type ProfilePagePropsType = {
-    postData?: Array<PostDataArray>;
-}
-
-export type MessagesPagePropsType = {
-    messagesData: Array<MessagesDataArray>;
-    dialogsData: Array<DialogsDataArray>;
+export type ProfilePageType = {
+    postData: Array<PostDataArray>
+    newPostText: string
 }
 
 export type FriendsDataArray = {
-    id?: number;
-    user_name: string;
-    img_path: string;
-}
-export type FriendPagePropsType = {
-    friendData: Array<FriendsDataArray>;
+    id: number
+    user_name: string
+    img_path: string
 }
 
-export type AppPropsType = {
-    profilePage?: ProfilePagePropsType;
-    friendPage?: FriendPagePropsType;
-    messagesPage?: MessagesPagePropsType;
+export type FriendPageType = {
+    friendData: Array<FriendsDataArray>
 }
 
-export type StatePropsType = {
-    state: AppPropsType;
+export type DialogsDataArray = {
+    id: number
+    name: string
+}
+
+export type MessagesPageType = {
+    dialogsData: Array<DialogsDataArray>
 }
 
 
-let state = {
-    profilePage: {
-        postData: [
-            {id: 1, message: 'Hey, how you doing?', like: 5},
-            {id: 2, message: 'What\'s cooking, good looking?', like: 8}
-        ]
+export type StateType = {
+    profilePage: ProfilePageType
+    friendPage: FriendPageType
+    messagesPage: MessagesPageType
+}
+
+
+
+export type StoreType = {
+    _state: StateType
+    getState: () => any
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+    subscribe: (observer: () => void) => void
+    _callSubscriber: () => void
+}
+
+
+let store: StoreType = {
+    _state: {
+        profilePage: {
+            postData: [
+                {id: 1, message: 'Hey, how you doing?', like: 5},
+                {id: 2, message: 'What\'s cooking, good looking?', like: 8},
+            ],
+            newPostText: ''
+        },
+        friendPage: {
+            friendData: [
+                {id: 1, user_name: 'Jeff Bezos', img_path: 'Bezos.png'},
+                {id: 2, user_name: 'Elon Musk', img_path: 'Musk.png'},
+                {id: 3, user_name: 'Jordan Peterson', img_path: 'Peterson.webp'},
+                {id: 4, user_name: 'Mark Zuckerberg', img_path: 'Zuckerberg.png'},
+                {id: 5, user_name: 'Michael  Jordan', img_path: 'Jordan.png'}
+            ]
+        },
+
+        messagesPage: {
+            dialogsData: [
+                {id: 1, name: 'Jeff Bezos'},
+                {id: 2, name: 'Elon Musk'},
+                {id: 3, name: 'Jordan Peterson'},
+
+            ]
+        }
     },
-    friendPage: {
-        friendData: [
-            {id: 2, user_name: 'Jeff Bezos', img_path: 'Bezos.png'},
-            {id: 3, user_name: 'Elon Musk', img_path: 'Musk.png'},
-            {id: 4, user_name: 'Jordan Peterson', img_path: 'Peterson.webp'},
-            {id: 5, user_name: 'Mark Zuckerberg', img_path: 'Zuckerberg.png'},
-            {id: 6, user_name: 'Michael  Jordan', img_path: 'Jordan.png'}
-        ]
+    getState() {
+        return this._state
     },
-
-    messagesPage: {
-        messagesData: [
-            {id: 1, message: 'Hello, how are you?'},
-            {id: 2, message: 'I am okay. How are you?'},
-            {id: 3, message: 'What\'s your favorite programming language?'}
-        ],
-        dialogsData: [
-            {id: 1, name: 'Alex'},
-            {id: 2, name: 'Olga'},
-            {id: 3, name: 'Boris'}
-        ]
-    }
+    addPost() {
+        let postDataPushItem = {
+            id: 3,
+            message: this._state.profilePage.newPostText,
+            like: 9
+        }
+        this._state.profilePage.postData.push(postDataPushItem);
+        this._state.profilePage.newPostText = '';
+        this._callSubscriber();
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText;
+        this._callSubscriber();
+    },
+    subscribe(observer: () => void) {    // observer
+        this._callSubscriber = observer;                // override
+    },
+    _callSubscriber() {
+    },
 
 }
 
-export default state;
+
+export default store;

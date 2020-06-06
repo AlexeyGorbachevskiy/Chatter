@@ -1,5 +1,6 @@
 .friend_item_container {
-    height: 114px;
+    /*height: 114px;*/
+    min-height: 20%;
     display: grid;
     grid-template-columns: 150px 1fr;
     border-bottom: grey 1px solid;
@@ -34,7 +35,8 @@
 }
 
 .to_messages {
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size: 18px;
 }
 
 .to_messages .link {

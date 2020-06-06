@@ -1,11 +1,15 @@
 import React from 'react';
 import obj from './Friends.module.css';
 import FriendItem from './FriendItem/FriendItem';
-import {AppPropsType, FriendsDataArray} from '../../redux/state';
+import {FriendPageType, FriendsDataArray} from '../../redux/state';
 
-function Friends(props: AppPropsType) {
 
-    let friendElements = props.friendPage?.friendData.map((t: FriendsDataArray) => {
+type FriendsPropsType={
+    friendPage:FriendPageType
+}
+
+function Friends(props: FriendsPropsType) {
+    let friendElements = props.friendPage.friendData.map((t: FriendsDataArray) => {
         return (
             <FriendItem user_name={t.user_name} img_path={t.img_path}/>
         )

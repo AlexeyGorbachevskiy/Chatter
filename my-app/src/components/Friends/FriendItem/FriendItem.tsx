@@ -1,10 +1,16 @@
 import React from 'react';
 import obj from './FriendItem.module.css';
 import {NavLink} from 'react-router-dom';
-import {FriendsDataArray} from '../../../redux/state';
 
 
-function FriendItem(props: FriendsDataArray) {
+
+type FriendItemType={
+    user_name:string
+    img_path:string
+}
+
+
+function FriendItem(props: FriendItemType) {
     return (
 
         <div className={obj.friend_item_container}>

@@ -1,0 +1,38 @@
+
+.message_side_container {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+}
+
+
+.message_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /*background-color: red;*/
+}
+
+.input_container {
+    border-top: 1px white solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input{
+    margin-right: 5%;
+    width: 50%;
+    word-break: break-word;
+    outline: none;
+    resize: none;
+    overflow: auto;
+    font-size: 14px;
+}
+
+.send_btn{
+    cursor: pointer;
+    width:10%;
+    height: 30%;
+}
+
