@@ -38,15 +38,17 @@ export type StateType = {
     messagesPage: MessagesPageType
 }
 
-
+export type DispatchActionType = {
+    type: string
+    newText?: string
+}
 
 export type StoreType = {
     _state: StateType
-    getState: () => any
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
-    subscribe: (observer: () => void) => void
     _callSubscriber: () => void
+    getState: () => any
+    subscribe: (observer: () => void) => void
+    dispatch: (action: DispatchActionType) => void
 }
 
 
@@ -78,29 +80,32 @@ let store: StoreType = {
             ]
         }
     },
+    _callSubscriber() {
+    },
+
     getState() {
         return this._state
-    },
-    addPost() {
-        let postDataPushItem = {
-            id: 3,
-            message: this._state.profilePage.newPostText,
-            like: 9
-        }
-        this._state.profilePage.postData.push(postDataPushItem);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber();
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber();
     },
     subscribe(observer: () => void) {    // observer
         this._callSubscriber = observer;                // override
     },
-    _callSubscriber() {
-    },
 
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let postDataPushItem = {
+                id: 3,
+                message: this._state.profilePage.newPostText,
+                like: 9,
+            }
+            this._state.profilePage.postData.push(postDataPushItem);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber();
+        }
+        else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            action.newText && (this._state.profilePage.newPostText  = action.newText);
+            this._callSubscriber();
+        }
+    },
 }
 
 

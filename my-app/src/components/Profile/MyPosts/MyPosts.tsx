@@ -1,13 +1,12 @@
 import React from 'react';
 import obj from './MyPosts.module.css';
 import Post from './Post/Post';
-import {PostDataArray} from '../../../redux/state';
+import {DispatchActionType, PostDataArray} from '../../../redux/state';
 
 type MyPostsPropsType={
     postData: Array<PostDataArray>
     newPostText: string
-    addPost: ()=>void
-    updateNewPostText: (newText: string)=>void
+    dispatch: (action:DispatchActionType)=>void
 }
 
 
@@ -22,14 +21,15 @@ function MyPosts(props:MyPostsPropsType ) {
 
     let addPost = () => {
         // props.addPost && props.addPost(postMessage);
-        props.addPost();
+        const action={type:'ADD-POST'};
+        props.dispatch(action);
         // textArea.current.value = '';
     }
 
     let onPostChange = () => {
         let newText = textArea.current.value;
         // props.updateNewPostText && props.updateNewPostText(newText);
-        props.updateNewPostText(newText);
+        props.dispatch({type:'UPDATE-NEW-POST-TEXT',newText});
     }
 
     return (

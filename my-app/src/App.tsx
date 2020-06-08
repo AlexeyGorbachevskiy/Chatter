@@ -9,13 +9,12 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Friends from './components/Friends/Friends';
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
-import {StateType} from './redux/state';
+import {DispatchActionType, StateType} from './redux/state';
 
 
 type AppPropsType={
     state:StateType
-    addPost: ()=>void
-    updateNewPostText: (newText: string)=>void
+    dispatch: (action:DispatchActionType)=>void
 }
 
 function App(props: AppPropsType) {
@@ -25,7 +24,7 @@ function App(props: AppPropsType) {
                 <Header/>
                 <Nav/>
                 <Route exact path='/' render={() => <Redirect to={'/profile'}/>}/>
-                <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>}/>
+                <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
                 <Route path='/friends' render={() => <Friends friendPage={props.state.friendPage}/>}/>
                 <Route path='/messages' render={() => <Messages messagesPage={props.state.messagesPage}/>}/>
                 <Route path='/news' render={() => <News/>}/>
