@@ -2,11 +2,13 @@ import React from 'react';
 import obj from './Messages.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import MessageItem from './MessageItem/MessageItem';
-import {DialogsDataArray, MessagesPageType} from '../../redux/state';
+import {DialogsDataArray, DispatchActionType, MessagesPageType} from "../../redux/redux-store";
+
 
 
 type MessagesPropsType={
     messagesPage:MessagesPageType
+    dispatch: (action:DispatchActionType)=>void
 }
 
 function Messages(props: MessagesPropsType) {
@@ -21,7 +23,7 @@ function Messages(props: MessagesPropsType) {
                     {dialogElements}
             </div>
             <div className={obj.messages_items}>
-                <MessageItem/>
+                <MessageItem messagesPage={props.messagesPage} dispatch={props.dispatch}/>
             </div>
         </div>
     );

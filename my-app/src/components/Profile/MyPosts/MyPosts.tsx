@@ -1,7 +1,9 @@
 import React from 'react';
 import obj from './MyPosts.module.css';
 import Post from './Post/Post';
-import {DispatchActionType, PostDataArray} from '../../../redux/state';
+import {DispatchActionType, PostDataArray} from "../../../redux/redux-store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
+
 
 type MyPostsPropsType={
     postData: Array<PostDataArray>
@@ -17,19 +19,19 @@ function MyPosts(props:MyPostsPropsType ) {
         return <Post message={t.message} like={t.like}/>
     });
 
-    let textArea: any = React.createRef();
+    let textArea = React.createRef<HTMLTextAreaElement>();
 
     let addPost = () => {
         // props.addPost && props.addPost(postMessage);
-        const action={type:'ADD-POST'};
-        props.dispatch(action);
+        props.dispatch(addPostActionCreator());
         // textArea.current.value = '';
     }
 
     let onPostChange = () => {
-        let newText = textArea.current.value;
+        let newText = textArea.current!.value;
         // props.updateNewPostText && props.updateNewPostText(newText);
-        props.dispatch({type:'UPDATE-NEW-POST-TEXT',newText});
+        const action=updateNewPostTextActionCreator(newText);
+        props.dispatch(action);
     }
 
     return (

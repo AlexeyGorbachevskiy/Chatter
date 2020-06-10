@@ -1,49 +1,59 @@
 import React from 'react';
+import profileReducer from "./profileReducer";
+import messagesReducer from "./messagesReducer";
+import friendReducer from "./friendReducer";
 
 
-export type PostDataArray = {
+type PostDataArray = {
     id: number
     message: string
     like: number
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     postData: Array<PostDataArray>
     newPostText: string
 }
 
-export type FriendsDataArray = {
+type FriendsDataArray = {
     id: number
     user_name: string
     img_path: string
 }
 
-export type FriendPageType = {
+type FriendPageType = {
     friendData: Array<FriendsDataArray>
 }
 
-export type DialogsDataArray = {
+type DialogsDataArray = {
     id: number
     name: string
 }
+ type MessagesDataArray = {
+    id: number
+    messageText: string
+}
 
-export type MessagesPageType = {
+ type MessagesPageType = {
     dialogsData: Array<DialogsDataArray>
+    messagesData: Array<MessagesDataArray>
+    newMessageBody: string
 }
 
 
-export type StateType = {
+ type StateType = {
     profilePage: ProfilePageType
     friendPage: FriendPageType
     messagesPage: MessagesPageType
 }
 
-export type DispatchActionType = {
+ type DispatchActionType = {
     type: string
     newText?: string
+    body?: string
 }
 
-export type StoreType = {
+ type StoreType = {
     _state: StateType
     _callSubscriber: () => void
     getState: () => any
@@ -70,15 +80,21 @@ let store: StoreType = {
                 {id: 5, user_name: 'Michael  Jordan', img_path: 'Jordan.png'}
             ]
         },
-
         messagesPage: {
             dialogsData: [
                 {id: 1, name: 'Jeff Bezos'},
                 {id: 2, name: 'Elon Musk'},
                 {id: 3, name: 'Jordan Peterson'},
 
-            ]
-        }
+            ],
+            messagesData: [
+                {id: 1, messageText: 'I\'m fine. How\'re you?'},
+                {id: 2, messageText: 'Hellooooooooooooooooooooooooooooooooooooooooo'},
+                {id: 3, messageText: 'Byeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'},
+
+            ],
+            newMessageBody: '',
+        },
     },
     _callSubscriber() {
     },
@@ -91,22 +107,12 @@ let store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let postDataPushItem = {
-                id: 3,
-                message: this._state.profilePage.newPostText,
-                like: 9,
-            }
-            this._state.profilePage.postData.push(postDataPushItem);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber();
-        }
-        else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            action.newText && (this._state.profilePage.newPostText  = action.newText);
-            this._callSubscriber();
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
+        this._state.friendPage = friendReducer(this._state.friendPage, action);
+        this._callSubscriber();
     },
 }
 
 
-export default store;
+// export default store;

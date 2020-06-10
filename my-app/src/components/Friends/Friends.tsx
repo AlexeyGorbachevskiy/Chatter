@@ -1,7 +1,8 @@
 import React from 'react';
 import obj from './Friends.module.css';
 import FriendItem from './FriendItem/FriendItem';
-import {FriendPageType, FriendsDataArray} from '../../redux/state';
+import {FriendPageType, FriendsDataArray} from "../../redux/redux-store";
+
 
 
 type FriendsPropsType={

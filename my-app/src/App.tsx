@@ -9,7 +9,8 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import Friends from './components/Friends/Friends';
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
-import {DispatchActionType, StateType} from './redux/state';
+import {DispatchActionType, StateType} from "./redux/redux-store";
+
 
 
 type AppPropsType={
@@ -26,7 +27,7 @@ function App(props: AppPropsType) {
                 <Route exact path='/' render={() => <Redirect to={'/profile'}/>}/>
                 <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage} dispatch={props.dispatch}/>}/>
                 <Route path='/friends' render={() => <Friends friendPage={props.state.friendPage}/>}/>
-                <Route path='/messages' render={() => <Messages messagesPage={props.state.messagesPage}/>}/>
+                <Route path='/messages' render={() => <Messages messagesPage={props.state.messagesPage} dispatch={props.dispatch}/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>

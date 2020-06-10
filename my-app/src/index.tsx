@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import store from "./redux/state";
+import store from "./redux/redux-store";
 
 
 let rerenderEntireTree = () => {
@@ -16,7 +16,6 @@ let rerenderEntireTree = () => {
     );
 }
 rerenderEntireTree();
-
 
 store.subscribe(rerenderEntireTree); // Observer
 
