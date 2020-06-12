@@ -1,7 +1,4 @@
-import {DispatchActionType, FriendPageType} from "./redux-store";
 
-
-type FriendReducerType = (state: FriendPageType, action: DispatchActionType) => FriendPageType
 
 let initialState = {
     friendData: [
@@ -14,7 +11,7 @@ let initialState = {
 }
 
 
-const friendReducer: FriendReducerType = (state = initialState, action) => {
+const friendReducer = (state = initialState, action: any): any => {
     return state;
 }
 

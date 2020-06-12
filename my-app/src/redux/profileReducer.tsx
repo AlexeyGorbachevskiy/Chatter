@@ -1,8 +1,3 @@
-import {DispatchActionType, ProfilePageType} from "./redux-store";
-
-
-type ProfileReducerType = (state: ProfilePageType, action: DispatchActionType) => ProfilePageType
-
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
@@ -15,7 +10,9 @@ let initialState = {
     newPostText: ''
 }
 
-const profileReducer: ProfileReducerType = (state=initialState, action) => {
+type initialStateType = typeof initialState
+
+const profileReducer = (state: initialStateType = initialState, action: profileReducerActionTypes) => {
 
     switch (action.type) {
         case ADD_POST: {
@@ -24,21 +21,40 @@ const profileReducer: ProfileReducerType = (state=initialState, action) => {
                 message: state.newPostText,
                 like: 9,
             }
-            state.postData.push(postDataPushItem);
-            state.newPostText = '';
-            return state
+            return {
+                ...state,
+                postData: [postDataPushItem, ...state.postData],
+                newPostText: '',
+            };
+
         }
         case UPDATE_NEW_POST_TEXT: {
-            action.newText && (state.newPostText = action.newText);
-            return state
+            return {
+                ...state,
+                newPostText: action.newText,
+            };
         }
         default:
             return state
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const updateNewPostTextActionCreator = (newText: string) => ({type: UPDATE_NEW_POST_TEXT, newText});
+export type profileReducerActionTypes = addPostActionCreatorType | updateNewPostTextActionCreator
+
+export type addPostActionCreatorType = {
+    type: typeof ADD_POST
+
+}
+export type updateNewPostTextActionCreator = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    newText: string
+}
+
+export const addPostActionCreator = (): addPostActionCreatorType => ({type: ADD_POST});
+export const updateNewPostTextActionCreator = (newText: string): updateNewPostTextActionCreator => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText
+});
 
 
 export default profileReducer;

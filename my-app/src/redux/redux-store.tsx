@@ -3,66 +3,18 @@ import profileReducer from "./profileReducer";
 import messagesReducer from "./messagesReducer";
 import friendReducer from "./friendReducer";
 
-export type PostDataArray = {
-    id: number
-    message: string
-    like: number
-}
 
-export type ProfilePageType = {
-    postData: Array<PostDataArray>
-    newPostText: string
-}
-
-export type FriendsDataArray = {
-    id: number
-    user_name: string
-    img_path: string
-}
-
-export type FriendPageType = {
-    friendData: Array<FriendsDataArray>
-}
-
-export type DialogsDataArray = {
-    id: number
-    name: string
-}
-export type MessagesDataArray = {
-    id: number
-    messageText: string
-}
-
-export type MessagesPageType = {
-    dialogsData: Array<DialogsDataArray>
-    messagesData: Array<MessagesDataArray>
-    newMessageBody: string
-}
-
-
-export type StateType = {
-    profilePage: ProfilePageType
-    friendPage: FriendPageType
-    messagesPage: MessagesPageType
-}
-
-export type DispatchActionType = {
-    type: string
-    newText?: string
-    body?: string
-}
-
-
-let reducers = combineReducers(
+let rootReducer = combineReducers(
     {
         profilePage: profileReducer,
         messagesPage: messagesReducer,
-        friendPage: friendReducer
+        friendPage: friendReducer,
     }
 );
 
+export type RootState = ReturnType<typeof rootReducer>
 
-let store = createStore(reducers);
+let store = createStore(rootReducer);
 
 
 export default store;

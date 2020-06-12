@@ -1,20 +1,26 @@
 import React from 'react';
 import obj from './Messages.module.css';
 import DialogItem from './DialogItem/DialogItem';
-import MessageItem from './MessageItem/MessageItem';
-import {DialogsDataArray, DispatchActionType, MessagesPageType} from "../../redux/redux-store";
+import MessageItemContainer from "./MessageItem/MessageItemContainer";
 
+export type DialogsDataArray = {
+    id: number
+    name: string
+}
+export type MessagesDataArray = {
+    id: number
+    messageText: string
+}
 
 
 type MessagesPropsType={
-    messagesPage:MessagesPageType
-    dispatch: (action:DispatchActionType)=>void
+    store:any
 }
 
 function Messages(props: MessagesPropsType) {
 
-    let dialogElements = props.messagesPage.dialogsData.map((t: DialogsDataArray) => {
-        return <DialogItem user_name={t.name} user_id={t.id}/>
+    let dialogElements = props.store.getState().messagesPage.dialogsData.map((t: DialogsDataArray) => {
+        return <DialogItem key={t.id} user_name={t.name} user_id={t.id}/>
     });
 
     return (
@@ -23,11 +29,14 @@ function Messages(props: MessagesPropsType) {
                     {dialogElements}
             </div>
             <div className={obj.messages_items}>
-                <MessageItem messagesPage={props.messagesPage} dispatch={props.dispatch}/>
+                <MessageItemContainer/>
             </div>
         </div>
     );
 }
+
+
+
 
 
 export default Messages;

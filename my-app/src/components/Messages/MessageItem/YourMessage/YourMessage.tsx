@@ -1,6 +1,7 @@
 import React from 'react';
 import obj from './YourMessage.module.css';
-import {MessagesDataArray, MessagesPageType} from "../../../../redux/redux-store";
+import {MessagesPageType} from "../MessageItem";
+import {MessagesDataArray} from "../../Messages";
 
 
 type YourMessagePropsType = {

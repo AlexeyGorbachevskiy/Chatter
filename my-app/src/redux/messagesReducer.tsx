@@ -1,9 +1,3 @@
-import {DispatchActionType, MessagesPageType} from "./redux-store";
-
-
-type MessagesReducerType = (state: MessagesPageType, action: DispatchActionType) => MessagesPageType
-
-
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
@@ -23,18 +17,23 @@ let initialState = {
     newMessageBody: '',
 }
 
-const messagesReducer: MessagesReducerType = (state=initialState, action) => {
+const messagesReducer = (state = initialState, action: any): any => {
 
+    // copy only what will be changed
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY: {
-            action.body && (state.newMessageBody = action.body);
-            return state;
+            return {
+                ...state,
+                newMessageBody: action.body
+            }
         }
         case SEND_MESSAGE: {
             let body = state.newMessageBody;
-            state.newMessageBody = '';
-            state.messagesData.push({id: 4, messageText: body});
-            return state
+            return {
+                ...state,
+                newMessageBody: '',
+                messagesData: [...state.messagesData, {id: 4, messageText: body}],
+            }
         }
         default:
             return state

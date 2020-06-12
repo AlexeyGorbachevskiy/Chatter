@@ -1,37 +1,36 @@
 import React from 'react';
 import obj from './MyPosts.module.css';
 import Post from './Post/Post';
-import {DispatchActionType, PostDataArray} from "../../../redux/redux-store";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profileReducer";
 
-
-type MyPostsPropsType={
-    postData: Array<PostDataArray>
-    newPostText: string
-    dispatch: (action:DispatchActionType)=>void
+type PostDataArray = {
+    id: number
+    message: string
+    like: number
 }
 
+type MyPostsPropsType = {
+    postData: Array<PostDataArray>
+    newPostText: string
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+}
 
-
-function MyPosts(props:MyPostsPropsType ) {
+function MyPosts(props: MyPostsPropsType) {
 
     let postElements = props.postData.map((t: PostDataArray) => {
-        return <Post message={t.message} like={t.like}/>
+        return <Post key={t.id} message={t.message} like={t.like}/>
     });
 
     let textArea = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        // props.addPost && props.addPost(postMessage);
-        props.dispatch(addPostActionCreator());
-        // textArea.current.value = '';
+    let onAddPost = () => {
+        props.addPost();
     }
 
     let onPostChange = () => {
         let newText = textArea.current!.value;
-        // props.updateNewPostText && props.updateNewPostText(newText);
-        const action=updateNewPostTextActionCreator(newText);
-        props.dispatch(action);
+        props.updateNewPostText(newText);
+
     }
 
     return (
@@ -43,7 +42,7 @@ function MyPosts(props:MyPostsPropsType ) {
                     <textarea className={obj.textarea} onChange={onPostChange} value={props.newPostText} ref={textArea}
                               placeholder={'Enter your news...'} rows={4} cols={60} id='new_post_text_area'
                               name='new_post_text_area'/>
-                    <button onClick={addPost} className={obj.new_post_button}
+                    <button onClick={onAddPost} className={obj.new_post_button}
                             value={'Send'}><i className='fa fa-paper-plane'/> Send
                     </button>
                     {/*<input type="submit" value="Save" />*/}
