@@ -8,7 +8,7 @@ type PostDataArray = {
     like: number
 }
 
-type MyPostsPropsType = {
+export type MyPostsPropsType = {
     postData: Array<PostDataArray>
     newPostText: string
     addPost: () => void
@@ -36,7 +36,6 @@ function MyPosts(props: MyPostsPropsType) {
     return (
         <div className={obj.posts}>
             <div className={obj.new_post}>
-                {/*method="POST"*/}
                 <div className={obj.new_post_form}>
                     <h2>New Post</h2>
                     <textarea className={obj.textarea} onChange={onPostChange} value={props.newPostText} ref={textArea}
@@ -45,7 +44,6 @@ function MyPosts(props: MyPostsPropsType) {
                     <button onClick={onAddPost} className={obj.new_post_button}
                             value={'Send'}><i className='fa fa-paper-plane'/> Send
                     </button>
-                    {/*<input type="submit" value="Save" />*/}
                 </div>
             </div>
             {postElements}

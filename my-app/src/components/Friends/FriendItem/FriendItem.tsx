@@ -3,19 +3,16 @@ import obj from './FriendItem.module.css';
 import {NavLink} from 'react-router-dom';
 
 
-
-type FriendItemType={
-    user_name:string
-    img_path:string
+type FriendItemType = {
+    user_name: string
+    img_path: string
 }
 
 
 function FriendItem(props: FriendItemType) {
     return (
-
         <div className={obj.friend_item_container}>
             <div className={obj.img_wrapper}>
-                {/*<img className={obj.ava} src={require('../../img/avatar.png')} alt="Avatar"/>*/}
                 <NavLink to='#' className={obj.link}>
                     <img className={obj.ava}
                          src={'img/friend_images/' + props.img_path}
@@ -32,8 +29,6 @@ function FriendItem(props: FriendItemType) {
                 </NavLink></p>
             </div>
         </div>
-        // <hr className={obj.underline}/>
-
     );
 }
 

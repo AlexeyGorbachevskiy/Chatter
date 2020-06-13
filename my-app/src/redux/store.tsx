@@ -1,6 +1,6 @@
 import React from 'react';
 // import profileReducer from "./profileReducer";
-// import messagesReducer from "./messagesReducer";
+// import messagesItemReducer from "./messagesItemReducer";
 // import friendReducer from "./friendReducer";
 //
 //
@@ -108,7 +108,7 @@ import React from 'react';
 //
 //     dispatch(action) {
 //         this._state.profilePage = profileReducer(this._state.profilePage, action);
-//         this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
+//         this._state.messagesPage = messagesItemReducer(this._state.messagesPage, action);
 //         this._state.friendPage = friendReducer(this._state.friendPage, action);
 //         this._callSubscriber();
 //     },

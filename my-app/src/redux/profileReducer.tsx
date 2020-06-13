@@ -1,18 +1,25 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
+type initialStateType = typeof initialState
+
+export type PostDataArray = {
+    id: number
+    message: string
+    like: number
+}
 
 let initialState = {
     postData: [
         {id: 1, message: 'Hey, how you doing?', like: 5},
         {id: 2, message: 'What\'s cooking, good looking?', like: 8},
-    ],
-    newPostText: ''
+    ] as Array<PostDataArray>,
+    newPostText: '' as string
 }
 
-type initialStateType = typeof initialState
+export type ProfileReducerActionTypes = addPostActionCreatorType | updateNewPostTextActionCreator
 
-const profileReducer = (state: initialStateType = initialState, action: profileReducerActionTypes) => {
+const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionTypes): initialStateType => {
 
     switch (action.type) {
         case ADD_POST: {
@@ -39,8 +46,6 @@ const profileReducer = (state: initialStateType = initialState, action: profileR
     }
 }
 
-export type profileReducerActionTypes = addPostActionCreatorType | updateNewPostTextActionCreator
-
 export type addPostActionCreatorType = {
     type: typeof ADD_POST
 
@@ -49,6 +54,7 @@ export type updateNewPostTextActionCreator = {
     type: typeof UPDATE_NEW_POST_TEXT
     newText: string
 }
+
 
 export const addPostActionCreator = (): addPostActionCreatorType => ({type: ADD_POST});
 export const updateNewPostTextActionCreator = (newText: string): updateNewPostTextActionCreator => ({

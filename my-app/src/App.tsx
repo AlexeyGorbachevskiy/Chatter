@@ -3,19 +3,15 @@ import './App.css';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import Nav from './components/NavBar/Nav';
-import Messages from './components/Messages/Messages';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import Friends from './components/Friends/Friends';
+import FriendsContainer from "./components/Friends/FriendsContainer";
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
+import MessagesContainer from "./components/Messages/MessagesContainer";
 
 
-type AppPropsType = {
-    store: any
-}
-
-function App(props: AppPropsType) {
+function App() {
     return (
         <BrowserRouter>
             <div className='container'>
@@ -23,8 +19,8 @@ function App(props: AppPropsType) {
                 <Nav/>
                 <Route exact path='/' render={() => <Redirect to={'/profile'}/>}/>
                 <Route path='/profile' render={() => <Profile/>}/>
-                <Route path='/friends' render={() => <Friends store={props.store}/>}/>
-                <Route path='/messages' render={() => <Messages store={props.store}/>}/>
+                <Route path='/friends' render={() => <FriendsContainer/>}/>
+                <Route path='/messages' render={() => <MessagesContainer/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
