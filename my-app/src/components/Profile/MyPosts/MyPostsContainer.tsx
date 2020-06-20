@@ -10,11 +10,11 @@ import {Dispatch} from 'redux';
 
 
 type MapStatePropsType = {
-    postData: Array<PostDataArray>,
+    postData: Array<PostDataArray>
     newPostText: string
 }
 type MapDispatchPropsType = {
-    addPost: () => void,
+    addPost: () => void
     updateNewPostText: (newText: string) => void
 }
 

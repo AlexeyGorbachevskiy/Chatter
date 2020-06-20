@@ -11,6 +11,7 @@ function Nav() {
             <div className={obj.item}><NavLink to='/news' activeClassName={obj.activeLink} className={obj.link}>News</NavLink></div>
             <div className={obj.item}><NavLink to='/music' activeClassName={obj.activeLink} className={obj.link}>Music</NavLink></div>
             <div className={obj.item}><NavLink to='/settings' activeClassName={obj.activeLink} className={obj.link}>Settings</NavLink></div>
+            <div className={obj.item}><NavLink to='/findFriends' activeClassName={obj.activeLink} className={obj.link}>Find Friends</NavLink></div>
         </nav>
     );
 }

@@ -3,21 +3,18 @@ import FriendItem from './FriendItem/FriendItem';
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
 import Friends from "./Friends";
+import {UsersArrayType} from "../../redux/friendsReducer";
 
-type FriendsDataArrayType = {
-    id: number
-    user_name: string
-    img_path: string
-}
+
 type MapStatePropsType = {
     friendElements: JSX.Element[]
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        friendElements: state.friendPage.friendData.map((t: FriendsDataArrayType) => {
+        friendElements: state.friendsPage.users.filter((u)=>u.followed).map((t: UsersArrayType) => {
             return (
-                <FriendItem key={t.id} user_name={t.user_name} img_path={t.img_path}/>
+                <FriendItem key={t.id} fullName={t.fullName} imgName={t.imgName}/>
             )
         })
     }

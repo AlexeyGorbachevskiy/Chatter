@@ -9,6 +9,8 @@ import Settings from './components/Settings/Settings';
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
+import FindFriends from "./components/FindFriends/FindFriends";
+import FindFriendsContainer from "./components/FindFriends/FindFriendsContainer";
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
+                <Route path='/findFriends' render={() => <FindFriendsContainer/>}/>
                 {/*<Route path='/profile' component={Profile}/>*/}
             </div>
         </BrowserRouter>

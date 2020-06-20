@@ -4,7 +4,13 @@
     display: grid;
     grid-template-columns: 150px 1fr;
     border-bottom: grey 1px solid;
+}
 
+.info_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .underline {
@@ -27,7 +33,7 @@
 
 .name {
     display: inline-block;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
 }
 
 .name h2 {

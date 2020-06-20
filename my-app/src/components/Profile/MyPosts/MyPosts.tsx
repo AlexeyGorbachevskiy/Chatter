@@ -39,10 +39,10 @@ function MyPosts(props: MyPostsPropsType) {
                 <div className={obj.new_post_form}>
                     <h2>New Post</h2>
                     <textarea className={obj.textarea} onChange={onPostChange} value={props.newPostText} ref={textArea}
-                              placeholder={'Enter your news...'} rows={4} cols={60} id='new_post_text_area'
+                              placeholder={'What\'s new...'} rows={4} cols={60} id='new_post_text_area'
                               name='new_post_text_area'/>
                     <button onClick={onAddPost} className={obj.new_post_button}
-                            value={'Send'}><i className='fa fa-paper-plane'/> Send
+                            value={'Post'}><i className='fa fa-paper-plane'/> Post
                     </button>
                 </div>
             </div>

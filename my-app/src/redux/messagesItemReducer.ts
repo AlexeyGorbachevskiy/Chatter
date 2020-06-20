@@ -1,7 +1,3 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-
-
 type DialogsDataArray = {
     id: number
     name: string
@@ -64,6 +60,9 @@ export type SendMessageBodyActionCreatorType = {
     type: typeof SEND_MESSAGE,
 }
 
+
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
+const SEND_MESSAGE = 'SEND-MESSAGE';
 export const updateNewMessageBodyActionCreator = (currentValue: string): UpdateNewMessageBodyActionCreatorType => ({
     type: UPDATE_NEW_MESSAGE_BODY,
     currentValue
