@@ -1,0 +1,32 @@
+.friends_container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.friends_list {
+    display: grid;
+    width: 700px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.show_more_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1% 0;
+}
+
+.show_more_btn {
+    width: 160px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #0b0b8d;
+    border-color: #0b0b8d;
+    color: white;
+    /*border: 0px solid;*/
+    border-radius: 4%;
+    outline: none;
+}

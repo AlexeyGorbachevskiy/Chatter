@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
 import FindFriends from "./FindFriends";
-
 import {Dispatch} from "redux";
 import {followAC, FriendsReducerActionTypes, setUsersAC, unfollowAC, UsersArrayType} from "../../redux/friendsReducer";
+import FindFriendItem from "./FindFriedItem/FindFriendItem";
 
 
 
 export type MapStatePropsType = {
-    users: Array<UsersArrayType>
+    users: JSX.Element[]
 }
 
 export type MapDispatchPropsType = {
@@ -20,7 +20,11 @@ export type MapDispatchPropsType = {
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        users: state.findFriendsPage.users
+        users: state.findFriendsPage.users.map((t)=>{
+            return (
+                <FindFriendItem key={t.id} userInfo={t}/>
+            )
+        })
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDispatchPropsType => {

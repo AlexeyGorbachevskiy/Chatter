@@ -13,6 +13,7 @@ export type UsersArrayType = {
     status: string
     location: LocationType
     imgName: string
+    age: number
 }
 
 let initialState = {
@@ -23,7 +24,8 @@ let initialState = {
             fullName: 'Jeff Bezos',
             status: 'Hey, how you doing?',
             location: {city: 'Minsk', country: 'Belarus'},
-            imgName: "Bezos.png"
+            imgName: "Bezos.png",
+            age: 43,
         },
         {
             id: 2,
@@ -31,7 +33,8 @@ let initialState = {
             fullName: 'Elon Musk',
             status: 'Hi all!!!',
             location: {city: 'Moscow', country: 'Russia'},
-            imgName: "Musk.png"
+            imgName: "Musk.png",
+            age: 29,
         },
         {
             id: 3,
@@ -39,7 +42,8 @@ let initialState = {
             fullName: 'Jordan Peterson',
             status: 'Hey, how are you?',
             location: {city: 'Minsk', country: 'Belarus'},
-            imgName: "Peterson.webp"
+            imgName: "Peterson.webp",
+            age: 28,
         },
         {
             id: 4,
@@ -47,7 +51,8 @@ let initialState = {
             fullName: 'Mark Zuckerberg',
             status: 'Hey, how are you?',
             location: {city: 'Minsk', country: 'Belarus'},
-            imgName: "Zuckerberg.png"
+            imgName: "Zuckerberg.png",
+            age: 36,
         },
         {
             id: 5,
@@ -55,11 +60,11 @@ let initialState = {
             fullName: 'Michael  Jordan',
             status: 'Hey, how are you?',
             location: {city: 'Minsk', country: 'Belarus'},
-            imgName: "Jordan.png"
+            imgName: "Jordan.png",
+            age: 58,
         },
-
-    ] as Array<UsersArrayType>,
-    newPostText: '' as string
+    ],
+    newPostText: ''
 }
 
 export type FriendsReducerActionTypes = FollowACType | UnfollowACType | SetUsersACTYPE;
