@@ -8,7 +8,7 @@ let rootReducer = combineReducers(
     {
         profilePage: profileReducer,
         messagesPage: messagesItemReducer,
-        friendsPage: friendsReducer,
+        // friendsPage: friendsReducer,
         findFriendsPage:friendsReducer,
     }
 );

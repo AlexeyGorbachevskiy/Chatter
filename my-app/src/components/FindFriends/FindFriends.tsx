@@ -1,87 +1,66 @@
-import React from 'react';
-import obj from './FindFriends.module.css';
-import {UsersArrayType} from "../../redux/friendsReducer";
-import axios from 'axios';
+import React from 'react'
+import obj from "./FindFriends.module.css";
+import axios from "axios";
+import {setCurrentPageAC, UsersArrayType} from "../../redux/friendsReducer";
+import {RootState} from "../../redux/redux-store";
 
 type FindFriendsPropsType = {
     users: JSX.Element[]
     setUsers: (users: Array<UsersArrayType>) => void
+    pageSize: number
+    totalUsersCount: number
+    setTotalUsersCount: (usersCount: number) => void
+    currentPage: number
+    setCurrentPage: (pageNumber: number) => void
+
 }
 
+class FindFriends extends React.Component<FindFriendsPropsType, RootState> {
 
-function FindFriends(props: FindFriendsPropsType) {
-
-    if (props.users.length === 0) {
-
-        // axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response=>{
-        //     props.setUsers(response.data.items)
-        // })
-
-
-        // props.setUsers([
-        //     {
-        //         id: 1,
-        //         followed: true,
-        //         fullName: 'Jeff Bezos',
-        //         status: 'Hey, how you doing?',
-        //         location: {city: 'Minsk', country: 'Belarus'},
-        //         imgName: "Bezos.png",
-        //         age: 43,
-        //     },
-        //     {
-        //         id: 2,
-        //         followed: true,
-        //         fullName: 'Elon Musk',
-        //         status: 'Hi all!!!',
-        //         location: {city: 'Moscow', country: 'Russia'},
-        //         imgName: "Musk.png",
-        //         age: 29,
-        //     },
-        //     {
-        //         id: 3,
-        //         followed: true,
-        //         fullName: 'Jordan Peterson',
-        //         status: 'Hey, how are you?',
-        //         location: {city: 'Minsk', country: 'Belarus'},
-        //         imgName: "Peterson.webp",
-        //         age: 28,
-        //     },
-        //     {
-        //         id: 4,
-        //         followed: true,
-        //         fullName: 'Mark Zuckerberg',
-        //         status: 'Hey, how are you?',
-        //         location: {city: 'Minsk', country: 'Belarus'},
-        //         imgName: "Zuckerberg.png",
-        //         age: 36,
-        //     },
-        //     {
-        //         id: 5,
-        //         followed: true,
-        //         fullName: 'Michael  Jordan',
-        //         status: 'Hey, how are you?',
-        //         location: {city: 'Minsk', country: 'Belarus'},
-        //         imgName: "Jordan.png",
-        //         age: 58,
-        //     },
-        // ]);
-
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
+        })
     }
-    return (
-        <div className={obj.friends_container}>
-            <div className={obj.friends_list}>
-                {props.users}
-                <span className={obj.show_more_wrapper}>
-                <button className={obj.show_more_btn}> Show more &nbsp;
-                    <i className="fa fa-angle-double-down" aria-hidden="true"/>
-                 </button>
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+        })
+    }
+
+
+    render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
+        let pages: Array<number> = [];
+        for (let i = 1; i <= 10; i++) {
+            pages.push(i);
+        }
+        return (
+            <div className={obj.friends_container}>
+                <div className={obj.friends_list}>
+                    {this.props.users}
+                    <span className={obj.footer_wrapper}>
+                        <button className={obj.back_btn}>
+                            <i className="fa fa-angle-double-left" aria-hidden="true"/>
+                            &nbsp; Back
+                         </button>
+                        <span className={obj.pages_wrapper}>
+                        {pages.map((pageNumber: number) => <span
+                            className={this.props.currentPage === pageNumber ? `${obj.page} ${obj.current_page_is_active}` : obj.page}
+                            key={pageNumber} onClick={() => this.onPageChanged(pageNumber)}>{pageNumber}</span>)}
+                        </span>
+                        <button className={obj.next_btn}> Next &nbsp;
+                            <i className="fa fa-angle-double-right" aria-hidden="true"/>
+                         </button>
                 </span>
+                </div>
             </div>
-
-
-        </div>
-    );
+        );
+    }
 }
-
 
 export default FindFriends;

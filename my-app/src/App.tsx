@@ -9,7 +9,6 @@ import Settings from './components/Settings/Settings';
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
-import FindFriends from "./components/FindFriends/FindFriends";
 import FindFriendsContainer from "./components/FindFriends/FindFriendsContainer";
 
 

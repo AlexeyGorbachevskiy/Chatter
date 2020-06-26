@@ -1,30 +1,44 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
-import FindFriends from "./FindFriends";
 import {Dispatch} from "redux";
-import {followAC, FriendsReducerActionTypes, setUsersAC, unfollowAC, UsersArrayType} from "../../redux/friendsReducer";
+import {
+    followAC,
+    FriendsReducerActionTypes,
+    setCurrentPageAC, setTotalUsersCountAC,
+    setUsersAC,
+    unfollowAC,
+    UsersArrayType
+} from "../../redux/friendsReducer";
 import FindFriendItem from "./FindFriedItem/FindFriendItem";
-
+import FindFriends from "./FindFriends";
 
 
 export type MapStatePropsType = {
     users: JSX.Element[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 export type MapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setUsers: (users: Array<UsersArrayType>) => void
+    setCurrentPage:(pageNumber:number)=>void
+    setTotalUsersCount:(usersCount:number)=>void
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        users: state.findFriendsPage.users.map((t)=>{
+        users: state.findFriendsPage.users.map((t: UsersArrayType) => {
             return (
-                <FindFriendItem key={t.id} userInfo={t}/>
+                <FindFriendItem key={t.id} users={t}/>
             )
-        })
+        }),
+        pageSize: state.findFriendsPage.pageSize,
+        totalUsersCount: state.findFriendsPage.totalUsersCount,
+        currentPage: state.findFriendsPage.currentPage
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDispatchPropsType => {
@@ -37,6 +51,12 @@ let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDis
         },
         setUsers: (users) => {
             dispatch(setUsersAC(users))
+        },
+        setCurrentPage: (pageNumber) => {
+            dispatch(setCurrentPageAC(pageNumber))
+        },
+        setTotalUsersCount:(totalUsersCount)=>{
+            dispatch(setTotalUsersCountAC(totalUsersCount))
         }
     }
 }

@@ -7,14 +7,14 @@ import {UsersArrayType} from "../../redux/friendsReducer";
 
 
 type MapStatePropsType = {
-    friendElements: JSX.Element[]
+    users: JSX.Element[]
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        friendElements: state.friendsPage.users.filter((u)=>u.followed).map((t: UsersArrayType) => {
+        users: state.findFriendsPage.users.filter((u:UsersArrayType) => u.followed).map((t: UsersArrayType) => {
             return (
-                <FriendItem key={t.id} fullName={t.fullName} imgName={t.imgName}/>
+                <FriendItem key={t.id} users={t}/>
             )
         })
     }
