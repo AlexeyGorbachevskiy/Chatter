@@ -1,66 +1,58 @@
-import React from 'react'
+import React from 'react';
 import obj from "./FindFriends.module.css";
-import axios from "axios";
-import {setCurrentPageAC, UsersArrayType} from "../../redux/friendsReducer";
-import {RootState} from "../../redux/redux-store";
+import Preloader from "../Common/Preloader/Preloader";
+
 
 type FindFriendsPropsType = {
     users: JSX.Element[]
-    setUsers: (users: Array<UsersArrayType>) => void
     pageSize: number
     totalUsersCount: number
-    setTotalUsersCount: (usersCount: number) => void
     currentPage: number
-    setCurrentPage: (pageNumber: number) => void
-
+    onPageChanged: (pageNumber: number) => void
+    isFetching: boolean
 }
 
-class FindFriends extends React.Component<FindFriendsPropsType, RootState> {
 
-    componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
-        })
+function FindFriends(props: FindFriendsPropsType) {
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages: Array<number> = [];
+    for (let i = 1; i <= 10; i++) {
+        pages.push(i);
     }
 
-    onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.setUsers(response.data.items)
-        })
-    }
+    return (
 
+        <div className={obj.friends_container}>
+            <div className={obj.friends_list}>
 
-    render() {
-
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        let pages: Array<number> = [];
-        for (let i = 1; i <= 10; i++) {
-            pages.push(i);
-        }
-        return (
-            <div className={obj.friends_container}>
-                <div className={obj.friends_list}>
-                    {this.props.users}
-                    <span className={obj.footer_wrapper}>
+                {
+                    props.isFetching ?
+                        <div className={obj.preloader_wrapper}>
+                            <Preloader/>
+                        </div>
+                        : null
+                }
+                {props.users}
+                <span className={obj.footer_wrapper}>
                         <button className={obj.back_btn}>
                             <i className="fa fa-angle-double-left" aria-hidden="true"/>
                             &nbsp; Back
                          </button>
                         <span className={obj.pages_wrapper}>
                         {pages.map((pageNumber: number) => <span
-                            className={this.props.currentPage === pageNumber ? `${obj.page} ${obj.current_page_is_active}` : obj.page}
-                            key={pageNumber} onClick={() => this.onPageChanged(pageNumber)}>{pageNumber}</span>)}
+                            className={props.currentPage === pageNumber ? `${obj.page} ${obj.current_page_is_active}` : obj.page}
+                            key={pageNumber} onClick={() => props.onPageChanged(pageNumber)}>{pageNumber}</span>)}
                         </span>
                         <button className={obj.next_btn}> Next &nbsp;
                             <i className="fa fa-angle-double-right" aria-hidden="true"/>
                          </button>
                 </span>
-                </div>
             </div>
-        );
-    }
+        </div>
+
+    )
 }
+
 
 export default FindFriends;

@@ -8,10 +8,10 @@ export type PhotosType = {
 export type UsersArrayType = {
     id: number
     name: string
+    uniqueUrlName: string
     photos: PhotosType
     status: string
     followed: boolean
-
 }
 
 let initialState = {
@@ -62,11 +62,12 @@ let initialState = {
     //         age: 58,
     //     },
     //     ],
-    users: <any[]>[],
+    users: <UsersArrayType[]>[],
     newPostText: '',
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
+    isFetching: false
 }
 
 export type FriendsReducerActionTypes =
@@ -74,7 +75,8 @@ export type FriendsReducerActionTypes =
     | UnfollowACType
     | SetUsersACTYPE
     | SetCurrentPageACTYPE
-    | SetTotalUsersCountACType;
+    | SetTotalUsersCountACType
+    | SetPreloaderACType;
 const friendsReducer = (state: initialStateType = initialState, action: FriendsReducerActionTypes): initialStateType => {
 
     switch (action.type) {
@@ -108,6 +110,9 @@ const friendsReducer = (state: initialStateType = initialState, action: FriendsR
         case SET_TOTAL_USERS_COUNT: {
             return {...state, totalUsersCount: action.totalUsersCount}
         }
+        case SET_PRELOADER: {
+            return {...state, isFetching: action.isFetching}
+        }
         default:
             return state
     }
@@ -134,12 +139,17 @@ export type SetTotalUsersCountACType = {
     type: typeof SET_TOTAL_USERS_COUNT
     totalUsersCount: number
 }
+export type SetPreloaderACType = {
+    type: typeof SET_PRELOADER
+    isFetching: boolean
+}
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const SET_PRELOADER = 'SET_PRELOADER';
 export const followAC = (userId: number): FollowACType => ({type: FOLLOW, userId});
 export const unfollowAC = (userId: number): UnfollowACType => ({type: UNFOLLOW, userId});
 export const setUsersAC = (users: Array<UsersArrayType>): SetUsersACTYPE => ({type: SET_USERS, users});
@@ -148,5 +158,6 @@ export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCoun
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount
 });
+export const setPreloaderAC = (isFetching: boolean): SetPreloaderACType => ({type: SET_PRELOADER, isFetching});
 
 export default friendsReducer;
