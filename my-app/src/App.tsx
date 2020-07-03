@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
 import Nav from './components/NavBar/Nav';
 import News from './components/News/News';
 import Music from './components/Music/Music';
@@ -10,6 +9,7 @@ import FriendsContainer from "./components/Friends/FriendsContainer";
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import FindFriendsContainer from "./components/FindFriends/FindFriendsContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
                 <Header/>
                 <Nav/>
                 <Route exact path='/' render={() => <Redirect to={'/profile'}/>}/>
-                <Route path='/profile' render={() => <Profile/>}/>
+                <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                 <Route path='/friends' render={() => <FriendsContainer/>}/>
                 <Route path='/messages' render={() => <MessagesContainer/>}/>
                 <Route path='/news' render={() => <News/>}/>

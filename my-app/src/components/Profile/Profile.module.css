@@ -5,8 +5,16 @@
 
 .content {
     grid-area: content;
-    /*need to use SCSS, 58px- height of header*/
+    /*58px- height of header*/
     /*height: calc(100vh - 58px);*/
     /*background: url("../img/bright.jpg") center no-repeat;*/
     /*background-size: cover;*/
+}
+
+.preloader_wrapper{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

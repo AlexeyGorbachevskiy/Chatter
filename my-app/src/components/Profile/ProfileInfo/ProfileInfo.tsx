@@ -1,16 +1,24 @@
 import React from 'react';
 import obj from './ProfileInfo.module.css';
+import {ProfileType} from "../../../redux/profileReducer";
 
 
-function ProfileInfo() {
+type ProfileInfo = {
+    profile: ProfileType | null
+}
+
+function ProfileInfo(props: ProfileInfo) {
     return (
         <div className={obj.data_wrapper}>
             <div className={obj.ava_wrapper}>
-                <img className={obj.ava} src={'img/default.png'} alt='Avatar'/>
+                <img className={obj.ava} src={process.env.PUBLIC_URL+'/img/default.png'} alt='Avatar'/>
             </div>
             <div className={obj.data}>
                 <div className={obj.data_header}>
-                    <h2>Alexey Gorbachevskiy</h2>
+                    <h2>
+                        {props.profile?.fullName
+                            .replace(props.profile?.fullName[0], props.profile?.fullName[0].toUpperCase())}
+                    </h2>
                 </div>
                 <div className={obj.data_items}>
                     <div className={obj.date}>

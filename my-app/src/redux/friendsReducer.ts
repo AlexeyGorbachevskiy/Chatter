@@ -150,6 +150,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const SET_PRELOADER = 'SET_PRELOADER';
+
 export const followAC = (userId: number): FollowACType => ({type: FOLLOW, userId});
 export const unfollowAC = (userId: number): UnfollowACType => ({type: UNFOLLOW, userId});
 export const setUsersAC = (users: Array<UsersArrayType>): SetUsersACTYPE => ({type: SET_USERS, users});

@@ -15,21 +15,21 @@ function FindFriendItem(props: FriendItemType) {
     return (
         <div className={obj.friend_item_container}>
             <div className={obj.img_wrapper}>
-                <NavLink to='#' className={obj.link}>
+                <NavLink to={'/profile/' + props.users.id} className={obj.link}>
                     <img className={obj.ava}
-                         src={props.users.photos.small!==null ? props.users.photos.small : 'img/default.png'}
+                         src={props.users.photos.small !== null ? props.users.photos.small : 'img/default.png'}
                          alt='Avatar'/>
                 </NavLink>
             </div>
             <div className={obj.info_grid}>
                 <div className={obj.info_wrapper}>
                     <div className={obj.name}>
-                        <NavLink to="#" className={obj.link}>
+                        <NavLink to={'/profile/' + props.users.id} className={obj.link}>
                             <h2>{`${props.users.name}`}</h2>
                         </NavLink>
                         {/*<p className={obj.age}>&nbsp; {`${props.users.age} years old`}</p>*/}
                     </div>
-                    <p className={obj.status}>{props.users.status!==null ? props.users.status : 'What\'s cooking, good looking?'}</p>
+                    <p className={obj.status}>{props.users.status !== null ? props.users.status : 'What\'s cooking, good looking?'}</p>
                 </div>
                 <div className={obj.follow_wrapper}>
                     {/*<p className={obj.location}>{`${props.users.location.city}, ${props.users.location.country}`}</p>*/}

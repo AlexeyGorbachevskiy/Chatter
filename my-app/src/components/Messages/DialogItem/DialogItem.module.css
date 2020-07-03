@@ -4,6 +4,7 @@
     font-family: -apple-system;
     display: flex;
     flex-wrap: nowrap;
+    margin-top: 10%;
 }
 
 .dialog_item .active {
