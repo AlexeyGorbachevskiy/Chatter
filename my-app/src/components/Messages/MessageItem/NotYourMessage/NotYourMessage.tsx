@@ -9,7 +9,7 @@ function NotYourMessage() {
     return (
         <div className={obj.message_container}>
             <div className={obj.img_wrapper}>
-                <img className={obj.image} src={'img/avatar.png'} alt='img'/>
+                <img className={obj.image} src={process.env.PUBLIC_URL+'/img/avatar.png'} alt='img'/>
             </div>
             <div className={obj.message_body}>
                 <h4>{name}</h4>

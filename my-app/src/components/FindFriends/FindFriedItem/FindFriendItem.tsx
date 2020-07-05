@@ -17,7 +17,7 @@ function FindFriendItem(props: FriendItemType) {
             <div className={obj.img_wrapper}>
                 <NavLink to={'/profile/' + props.users.id} className={obj.link}>
                     <img className={obj.ava}
-                         src={props.users.photos.small !== null ? props.users.photos.small : 'img/default.png'}
+                         src={props.users.photos.small ? props.users.photos.small : process.env.PUBLIC_URL+'/img/default.png'}
                          alt='Avatar'/>
                 </NavLink>
             </div>
@@ -29,7 +29,7 @@ function FindFriendItem(props: FriendItemType) {
                         </NavLink>
                         {/*<p className={obj.age}>&nbsp; {`${props.users.age} years old`}</p>*/}
                     </div>
-                    <p className={obj.status}>{props.users.status !== null ? props.users.status : 'What\'s cooking, good looking?'}</p>
+                    <p className={obj.status}>{props.users.status ? props.users.status : 'What\'s cooking, good looking?'}</p>
                 </div>
                 <div className={obj.follow_wrapper}>
                     {/*<p className={obj.location}>{`${props.users.location.city}, ${props.users.location.country}`}</p>*/}

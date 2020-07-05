@@ -2,6 +2,7 @@ import {createStore, combineReducers} from 'redux';
 import profileReducer from "./profileReducer";
 import messagesItemReducer from "./messagesItemReducer";
 import friendsReducer from "./friendsReducer";
+import authReducer from "./authReducer";
 
 
 let rootReducer = combineReducers(
@@ -9,7 +10,8 @@ let rootReducer = combineReducers(
         profilePage: profileReducer,
         messagesPage: messagesItemReducer,
         // friendsPage: friendsReducer,
-        findFriendsPage:friendsReducer,
+        findFriendsPage: friendsReducer,
+        auth: authReducer,
     }
 );
 

@@ -11,7 +11,13 @@ function ProfileInfo(props: ProfileInfo) {
     return (
         <div className={obj.data_wrapper}>
             <div className={obj.ava_wrapper}>
-                <img className={obj.ava} src={process.env.PUBLIC_URL+'/img/default.png'} alt='Avatar'/>
+                <img className={obj.ava}
+                     src={props.profile?.photos.large
+                         ?
+                         props.profile?.photos.large
+                         : process.env.PUBLIC_URL + '/img/default.png'}
+                     alt='Avatar'
+                />
             </div>
             <div className={obj.data}>
                 <div className={obj.data_header}>
@@ -22,16 +28,18 @@ function ProfileInfo(props: ProfileInfo) {
                 </div>
                 <div className={obj.data_items}>
                     <div className={obj.date}>
-                        <p>Date of birth: September 25, 1996</p>
+                        <p>About me: {props.profile?.aboutMe ? props.profile?.aboutMe : 'Hello, everybody!'}</p>
                     </div>
                     <div className={obj.city}>
-                        <p>City: Minsk</p>
+                        <p>Job search
+                            status: {props.profile?.lookingForAJob ? props.profile?.lookingForAJob : 'Looking for a job.'}</p>
                     </div>
                     <div className={obj.education}>
-                        <p>Education: BSUIR</p>
+                        <p>Job description: {props.profile?.lookingForAJobDescription ? props.profile.lookingForAJobDescription : 'Looking for a frontend developer position.'}
+                        </p>
                     </div>
                     <div className={obj.marital_status}>
-                        <p>Marital status: single</p>
+                        <p>My contacts: {props.profile?.contacts.twitter ? props.profile?.contacts.twitter : 'Oops.'}</p>
                     </div>
                 </div>
             </div>
