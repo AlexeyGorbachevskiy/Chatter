@@ -1,15 +1,19 @@
 import React from 'react';
 import obj from "./FindFriends.module.css";
 import Preloader from "../Common/Preloader/Preloader";
+import {UsersArrayType} from "../../redux/friendsReducer";
+import FindFriendItem from "./FindFriedItem/FindFriendItem";
 
 
 type FindFriendsPropsType = {
-    users: JSX.Element[]
+    users: Array<UsersArrayType>
     pageSize: number
     totalUsersCount: number
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     isFetching: boolean
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
 }
 
 
@@ -33,7 +37,18 @@ function FindFriends(props: FindFriendsPropsType) {
                         </div>
                         : null
                 }
-                {props.users}
+
+                {
+                    props.users.map((t: UsersArrayType) => {
+                        return (
+                            <FindFriendItem key={t.id}
+                                            users={t}
+                                            follow={props.follow}
+                                            unfollow={props.unfollow}/>
+                        )
+                    })
+                }
+
                 <span className={obj.footer_wrapper}>
                         <button className={obj.back_btn}>
                             <i className="fa fa-angle-double-left" aria-hidden="true"/>

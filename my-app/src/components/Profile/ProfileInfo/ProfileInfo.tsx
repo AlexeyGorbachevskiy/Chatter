@@ -28,7 +28,7 @@ function ProfileInfo(props: ProfileInfo) {
                 </div>
                 <div className={obj.data_items}>
                     <div className={obj.date}>
-                        <p>About me: {props.profile?.aboutMe ? props.profile?.aboutMe : 'Hello, everybody!'}</p>
+                        <p>About me: {props.profile?.aboutMe ? props.profile?.aboutMe : 'I love Javascript!'}</p>
                     </div>
                     <div className={obj.city}>
                         <p>Job search

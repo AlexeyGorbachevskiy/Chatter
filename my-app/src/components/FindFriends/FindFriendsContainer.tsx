@@ -16,7 +16,7 @@ import FindFriends from "./FindFriends";
 
 
 export type MapStatePropsType = {
-    users: JSX.Element[]
+    users: Array<UsersArrayType>
     pageSize: number
     totalUsersCount: number
     currentPage: number
@@ -34,11 +34,7 @@ export type MapDispatchPropsType = {
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        users: state.findFriendsPage.users.map((t: UsersArrayType) => {
-            return (
-                <FindFriendItem key={t.id} users={t}/>
-            )
-        }),
+        users: state.findFriendsPage.users,
         pageSize: state.findFriendsPage.pageSize,
         totalUsersCount: state.findFriendsPage.totalUsersCount,
         currentPage: state.findFriendsPage.currentPage,
@@ -70,24 +66,13 @@ let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDis
 }
 
 
-type FindFriendsAPIContainerPropsType = {
-    users: JSX.Element[]
-    setUsers: (users: Array<UsersArrayType>) => void
-    pageSize: number
-    totalUsersCount: number
-    setTotalUsersCount: (usersCount: number) => void
-    currentPage: number
-    setCurrentPage: (pageNumber: number) => void
-    isFetching: boolean
-    setPreloader: (isFetching: boolean) => void
-
-}
+export type FindFriendsAPIContainerPropsType = MapStatePropsType & MapDispatchPropsType;
 
 class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPropsType, RootState> {
 
     componentDidMount() {
         this.props.setPreloader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{withCredentials:true})
             .then(response => {
                 this.props.setPreloader(false);
                 this.props.setUsers(response.data.items);
@@ -98,7 +83,7 @@ class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPro
     onPageChanged = (pageNumber: number) => {
         this.props.setPreloader(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,{withCredentials:true})
             .then(response => {
                 this.props.setPreloader(false);
                 this.props.setUsers(response.data.items)
@@ -116,6 +101,8 @@ class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPro
                 currentPage={this.props.currentPage}
                 onPageChanged={this.onPageChanged}
                 isFetching={this.props.isFetching}
+                follow={this.props.follow}
+                unfollow={this.props.unfollow}
             />
         );
     }
