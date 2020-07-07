@@ -14,6 +14,9 @@ type FindFriendsPropsType = {
     isFetching: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
+    setFollowingInProgress:(isFollowingInProgress:boolean,userId:number)=>void
+    isFollowingInProgress:boolean
+    followingInProgress:Array<number>
 }
 
 
@@ -44,7 +47,11 @@ function FindFriends(props: FindFriendsPropsType) {
                             <FindFriendItem key={t.id}
                                             users={t}
                                             follow={props.follow}
-                                            unfollow={props.unfollow}/>
+                                            unfollow={props.unfollow}
+                                            setFollowingInProgress={props.setFollowingInProgress}
+                                            isFollowingInProgress={props.isFollowingInProgress}
+                                            followingInProgress={props.followingInProgress}
+                            />
                         )
                     })
                 }

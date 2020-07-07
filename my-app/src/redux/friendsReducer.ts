@@ -12,6 +12,7 @@ export type UsersArrayType = {
     photos: PhotosType
     status: string
     followed: boolean
+    isFollowingInProgress: boolean
 }
 
 let initialState = {
@@ -67,7 +68,9 @@ let initialState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: <number[]>[],
+    isFollowingInProgress: false,
 }
 
 export type FriendsReducerActionTypes =
@@ -76,7 +79,8 @@ export type FriendsReducerActionTypes =
     | SetUsersACTYPE
     | SetCurrentPageACTYPE
     | SetTotalUsersCountACType
-    | SetPreloaderACType;
+    | SetPreloaderACType
+    | SetFollowingInProgressACType;
 const friendsReducer = (state: initialStateType = initialState, action: FriendsReducerActionTypes): initialStateType => {
 
     switch (action.type) {
@@ -113,6 +117,14 @@ const friendsReducer = (state: initialStateType = initialState, action: FriendsR
         case SET_PRELOADER: {
             return {...state, isFetching: action.isFetching}
         }
+        case SET_IS_FOLLOWING_IN_PROGRESS: {
+            return {
+                ...state,
+                followingInProgress: action.isFollowingInProgress ?
+                    [...state.followingInProgress, action.userId]
+                    : state.followingInProgress.filter(id => id !== action.userId)
+            }
+        }
         default:
             return state
     }
@@ -143,6 +155,11 @@ export type SetPreloaderACType = {
     type: typeof SET_PRELOADER
     isFetching: boolean
 }
+export type SetFollowingInProgressACType = {
+    type: typeof SET_IS_FOLLOWING_IN_PROGRESS
+    isFollowingInProgress: boolean
+    userId: number
+}
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -150,6 +167,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const SET_PRELOADER = 'SET_PRELOADER';
+const SET_IS_FOLLOWING_IN_PROGRESS = 'SET_IS_FOLLOWING_IN_PROGRESS';
 
 export const followAC = (userId: number): FollowACType => ({type: FOLLOW, userId});
 export const unfollowAC = (userId: number): UnfollowACType => ({type: UNFOLLOW, userId});
@@ -160,5 +178,12 @@ export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCoun
     totalUsersCount
 });
 export const setPreloaderAC = (isFetching: boolean): SetPreloaderACType => ({type: SET_PRELOADER, isFetching});
+export const setFollowingInProgressAC =
+    (isFollowingInProgress: boolean,
+     userId: number): SetFollowingInProgressACType => ({
+        type: SET_IS_FOLLOWING_IN_PROGRESS,
+        isFollowingInProgress,
+        userId,
+    });
 
 export default friendsReducer;

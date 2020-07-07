@@ -5,14 +5,13 @@ import {Dispatch} from "redux";
 import {
     followAC,
     FriendsReducerActionTypes,
-    setCurrentPageAC, setPreloaderAC, setTotalUsersCountAC,
+    setCurrentPageAC, setFollowingInProgressAC, setPreloaderAC, setTotalUsersCountAC,
     setUsersAC,
     unfollowAC,
     UsersArrayType
 } from "../../redux/friendsReducer";
-import FindFriendItem from "./FindFriedItem/FindFriendItem";
-import axios from "axios";
 import FindFriends from "./FindFriends";
+import {userAPI} from "../../API/API";
 
 
 export type MapStatePropsType = {
@@ -21,6 +20,8 @@ export type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowingInProgress:boolean
+    followingInProgress:Array<number>
 }
 
 export type MapDispatchPropsType = {
@@ -30,6 +31,7 @@ export type MapDispatchPropsType = {
     setCurrentPage: (pageNumber: number) => void
     setTotalUsersCount: (usersCount: number) => void
     setPreloader: (isFetching: boolean) => void
+    setFollowingInProgress:(isFollowingInProgress:boolean,userId:number)=>void
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
@@ -39,7 +41,8 @@ let mapStateToProps = (state: RootState): MapStatePropsType => {
         totalUsersCount: state.findFriendsPage.totalUsersCount,
         currentPage: state.findFriendsPage.currentPage,
         isFetching: state.findFriendsPage.isFetching,
-
+        isFollowingInProgress: state.findFriendsPage.isFollowingInProgress,
+        followingInProgress:state.findFriendsPage.followingInProgress,
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDispatchPropsType => {
@@ -61,7 +64,10 @@ let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDis
         },
         setPreloader: (isFetching) => {
             dispatch(setPreloaderAC(isFetching))
-        }
+        },
+        setFollowingInProgress:(isFollowingInProgress,userId)=>{
+          dispatch(setFollowingInProgressAC(isFollowingInProgress,userId))
+        },
     }
 }
 
@@ -72,21 +78,22 @@ class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPro
 
     componentDidMount() {
         this.props.setPreloader(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,{withCredentials:true})
-            .then(response => {
+
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setPreloader(false);
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
             })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setPreloader(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,{withCredentials:true})
-            .then(response => {
+        userAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.setPreloader(false);
-                this.props.setUsers(response.data.items)
+                this.props.setUsers(data.items)
             })
     }
 
@@ -103,6 +110,9 @@ class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPro
                 isFetching={this.props.isFetching}
                 follow={this.props.follow}
                 unfollow={this.props.unfollow}
+                setFollowingInProgress={this.props.setFollowingInProgress}
+                isFollowingInProgress={this.props.isFollowingInProgress}
+                followingInProgress={this.props.followingInProgress}
             />
         );
     }
