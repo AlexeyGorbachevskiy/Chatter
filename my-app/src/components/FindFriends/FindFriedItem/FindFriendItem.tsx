@@ -1,8 +1,7 @@
 import React from 'react';
 import obj from './FindFriendItem.module.css';
 import {NavLink} from 'react-router-dom';
-import {UsersArrayType} from "../../../redux/friendsReducer";
-import axios from "axios";
+import { UsersArrayType} from "../../../redux/friendsReducer";
 
 
 type FriendItemType = {
@@ -12,36 +11,18 @@ type FriendItemType = {
     setFollowingInProgress: (isFollowingInProgress: boolean, userId: number) => void
     isFollowingInProgress: boolean
     followingInProgress: Array<number>
+    followThunkCreator:(userId:number)=>void
+    unFollowThunkCreator:(userId:number)=>void
 }
 
 
 function FindFriendItem(props: FriendItemType) {
 
     const onFollow = () => {
-        props.setFollowingInProgress(true, props.users.id);
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.users.id}`, {}, {
-            withCredentials: true,
-            headers: {"API-KEY": '3de0712e-e19a-4637-bf5e-355c7a8ad46c'}
-        })
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    props.follow(props.users.id);
-                }
-                props.setFollowingInProgress(false, props.users.id);
-            })
+        props.followThunkCreator(props.users.id);
     }
     const onUnfollow = () => {
-        props.setFollowingInProgress(true, props.users.id);
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.users.id}`, {
-            withCredentials: true,
-            headers: {"API-KEY": '3de0712e-e19a-4637-bf5e-355c7a8ad46c'}
-        })
-            .then(response => {
-                if (response.data.resultCode == 0) {
-                    props.unfollow(props.users.id)
-                }
-                props.setFollowingInProgress(false, props.users.id);
-            })
+        props.unFollowThunkCreator(props.users.id);
     }
     return (
         <div className={obj.friend_item_container}>

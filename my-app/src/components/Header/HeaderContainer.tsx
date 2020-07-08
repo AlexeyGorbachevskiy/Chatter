@@ -1,10 +1,9 @@
 import React from 'react';
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import {AuthReducerActionTypes, setAuthUserDataAC, UserDataType} from "../../redux/authReducer";
+import {AuthReducerActionTypes, getAuthInfoThunkCreator, UserDataType} from "../../redux/authReducer";
+import {ThunkDispatch} from "redux-thunk";
 
 
 export type HeaderContainerPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -12,17 +11,11 @@ export type HeaderContainerPropsType = MapStatePropsType & MapDispatchPropsType;
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType, {}> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true})
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    this.props.setAuthUserData(response.data.data);
-                }
-            })
+        this.props.getAuthInfoThunkCreator();
     }
 
     render() {
         return (
-            //
             <Header {...this.props}/>
         );
     }
@@ -31,23 +24,26 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType, {}> {
 
 type MapStatePropsType = {
     userData: UserDataType
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
-    setAuthUserData: (authUserData: UserDataType) => void
+    getAuthInfoThunkCreator: () => void
 }
 
 const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        userData: state.auth,
+        userData: state.auth.data,
+        isAuth: state.auth.isAuth,
     }
 }
 
 
-const mapDispatchToProps = (dispatch: Dispatch<AuthReducerActionTypes>): MapDispatchPropsType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, AuthReducerActionTypes>)
+    : MapDispatchPropsType => {
     return {
-        setAuthUserData: (authUserData: UserDataType) => {
-            dispatch(setAuthUserDataAC(authUserData))
+        getAuthInfoThunkCreator: () => {
+            dispatch(getAuthInfoThunkCreator())
         },
     }
 }
@@ -55,4 +51,3 @@ const mapDispatchToProps = (dispatch: Dispatch<AuthReducerActionTypes>): MapDisp
 
 export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
 (mapStateToProps, mapDispatchToProps)(HeaderContainer);
-;

@@ -1,3 +1,7 @@
+import {friendsAPI} from "../API/API";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "./redux-store";
+
 type initialStateType = typeof initialState
 
 
@@ -12,7 +16,6 @@ export type UsersArrayType = {
     photos: PhotosType
     status: string
     followed: boolean
-    isFollowingInProgress: boolean
 }
 
 let initialState = {
@@ -161,6 +164,8 @@ export type SetFollowingInProgressACType = {
     userId: number
 }
 
+export type getUsersThunkCreator = {}
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -185,5 +190,55 @@ export const setFollowingInProgressAC =
         isFollowingInProgress,
         userId,
     });
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number)
+    : ThunkAction<void, RootState, unknown, FriendsReducerActionTypes> => {
+    return (
+        (dispatch, getState) => {
+            dispatch(setPreloaderAC(true));
+
+            friendsAPI.getUsers(currentPage, pageSize)
+                .then(data => {
+                    dispatch(setPreloaderAC(false));
+                    dispatch(setUsersAC(data.items));
+                    dispatch(setTotalUsersCountAC(data.totalCount));
+                })
+        }
+    )
+}
+
+
+export const followThunkCreator = (userId: number)
+    : ThunkAction<void, RootState, unknown, FriendsReducerActionTypes> => {
+    return (
+        (dispatch, getState) => {
+            dispatch(setFollowingInProgressAC(true, userId));
+            friendsAPI.follow(userId)
+                .then(response => {
+                    if (response.data.resultCode == 0) {
+                        dispatch(followAC(userId));
+                    }
+                    dispatch(setFollowingInProgressAC(false, userId));
+                })
+        }
+    )
+}
+
+export const unFollowThunkCreator = (userId: number)
+    : ThunkAction<void, RootState, unknown, FriendsReducerActionTypes> => {
+    return (
+        (dispatch, getState) => {
+            dispatch(setFollowingInProgressAC(true, userId));
+            friendsAPI.unFollow(userId)
+                .then(response => {
+                    if (response.data.resultCode == 0) {
+                        dispatch(unfollowAC(userId));
+                    }
+                    dispatch(setFollowingInProgressAC(false, userId));
+                })
+        }
+    )
+}
 
 export default friendsReducer;

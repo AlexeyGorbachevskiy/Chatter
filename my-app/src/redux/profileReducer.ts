@@ -1,5 +1,9 @@
-type initialStateType = typeof initialState
+import {profileAPI} from "../API/API";
+import {RootState} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
+import {AuthReducerActionTypes} from "./authReducer";
 
+type initialStateType = typeof initialState
 
 
 export type PostDataArray = {
@@ -37,7 +41,7 @@ let initialState = {
         {id: 2, message: 'What\'s cooking, good looking?', like: 8},
     ] as Array<PostDataArray>,
     newPostText: '' as string,
-    profile: null as ProfileType|null,
+    profile: null as ProfileType | null,
 }
 
 export type ProfileReducerActionTypes = addPostACType | updateNewPostTextACType | setUserProfileACType
@@ -98,5 +102,16 @@ export const updateNewPostTextActionCreator = (newText: string): updateNewPostTe
 });
 export const setUserProfileAC = (profile: ProfileType): setUserProfileACType => ({type: SET_USER_PROFILE, profile})
 
+export const getProfileInfoThunkCreator = (userId: string)
+    :ThunkAction<void, RootState, unknown,ProfileReducerActionTypes>=> {
+    return (
+        (dispatch,getState) => {
+            profileAPI.getProfileInfo(userId)
+                .then(response => {
+                    dispatch(setUserProfileAC(response.data));
+                })
+        }
+    )
+}
 
 export default profileReducer;

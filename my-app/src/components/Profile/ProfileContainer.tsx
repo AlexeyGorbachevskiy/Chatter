@@ -1,11 +1,13 @@
 import React from 'react';
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import {ProfileReducerActionTypes, ProfileType, setUserProfileAC} from "../../redux/profileReducer";
+import {
+    getProfileInfoThunkCreator, ProfileReducerActionTypes,
+    ProfileType,
+} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router";
+import {ThunkDispatch} from "redux-thunk";
 
 
 export type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -16,14 +18,11 @@ class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
 
 
     componentDidMount() {
-        let userId=this.props.match.params.userId;
-        if(!userId){
-            userId='8963';
+        let userId = this.props.match.params.userId;
+        if (!userId) {
+            userId = '8963';
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                this.props.setUserProfile(response.data);
-            })
+        this.props.getProfileInfoThunkCreator(userId)
     }
 
     render() {
@@ -37,7 +36,7 @@ type MapStatePropsType = {
     profile: ProfileType | null
 }
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+    getProfileInfoThunkCreator: (userId: string) => void
 }
 
 const mapStateToProps = (state: RootState): MapStatePropsType => {
@@ -45,9 +44,10 @@ const mapStateToProps = (state: RootState): MapStatePropsType => {
         profile: state.profilePage.profile,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch<ProfileReducerActionTypes>): MapDispatchPropsType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, ProfileReducerActionTypes>)
+    : MapDispatchPropsType => {
     return {
-        setUserProfile: (profile: ProfileType) => dispatch(setUserProfileAC(profile))
+        getProfileInfoThunkCreator: (userId) => dispatch(getProfileInfoThunkCreator(userId))
     }
 }
 

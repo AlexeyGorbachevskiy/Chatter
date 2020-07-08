@@ -9,12 +9,48 @@ const axiosInstance = axios.create(
     },
 );
 
-export const userAPI = {
+export const friendsAPI = {
     getUsers(currentPage: number, pageSize: number) {
+        debugger
         return (
             axiosInstance.get(`users?page=${currentPage}&count=${pageSize}`)
                 .then(response => response.data)
 
         )
+    },
+    follow(userId: number) {
+        return (
+            axiosInstance.post(`follow/${userId}`)
+        )
+    },
+    unFollow(userId: number) {
+        return (
+            axiosInstance.delete(`follow/${userId}`)
+        )
+    },
+}
+
+export const profileAPI = {
+    getProfileInfo(userId: string) {
+        return (
+            axiosInstance.get(`profile/${userId}`)
+        )
     }
 }
+
+
+type GetAuthInfoType = {
+    data: { id: number, email: string, login: string }
+    resultCode: number
+    messages: Array<string>
+}
+
+export const authAPI = {
+    getAuthInfo() {
+        return (
+            axiosInstance.get<GetAuthInfoType>(`auth/me`)
+        )
+    }
+}
+
+

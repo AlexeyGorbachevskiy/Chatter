@@ -3,15 +3,14 @@ import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 import {
-    followAC,
-    FriendsReducerActionTypes,
-    setCurrentPageAC, setFollowingInProgressAC, setPreloaderAC, setTotalUsersCountAC,
-    setUsersAC,
-    unfollowAC,
+    followAC, followThunkCreator,
+    FriendsReducerActionTypes, getUsersThunkCreator,
+    setCurrentPageAC, setFollowingInProgressAC,
+    unfollowAC, unFollowThunkCreator,
     UsersArrayType
 } from "../../redux/friendsReducer";
 import FindFriends from "./FindFriends";
-import {userAPI} from "../../API/API";
+import {ThunkDispatch} from "redux-thunk";
 
 
 export type MapStatePropsType = {
@@ -20,18 +19,18 @@ export type MapStatePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    isFollowingInProgress:boolean
-    followingInProgress:Array<number>
+    isFollowingInProgress: boolean
+    followingInProgress: Array<number>
 }
 
 export type MapDispatchPropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setUsers: (users: Array<UsersArrayType>) => void
     setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (usersCount: number) => void
-    setPreloader: (isFetching: boolean) => void
-    setFollowingInProgress:(isFollowingInProgress:boolean,userId:number)=>void
+    setFollowingInProgress: (isFollowingInProgress: boolean, userId: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    followThunkCreator: (userId: number) => void
+    unFollowThunkCreator: (userId: number) => void
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
@@ -42,10 +41,11 @@ let mapStateToProps = (state: RootState): MapStatePropsType => {
         currentPage: state.findFriendsPage.currentPage,
         isFetching: state.findFriendsPage.isFetching,
         isFollowingInProgress: state.findFriendsPage.isFollowingInProgress,
-        followingInProgress:state.findFriendsPage.followingInProgress,
+        followingInProgress: state.findFriendsPage.followingInProgress,
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDispatchPropsType => {
+let mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, FriendsReducerActionTypes>)
+    : MapDispatchPropsType => {
     return {
         follow: (userId) => {
             dispatch(followAC(userId))
@@ -53,20 +53,20 @@ let mapDispatchToProps = (dispatch: Dispatch<FriendsReducerActionTypes>): MapDis
         unfollow: (userId) => {
             dispatch(unfollowAC(userId))
         },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
         setCurrentPage: (pageNumber) => {
             dispatch(setCurrentPageAC(pageNumber))
         },
-        setTotalUsersCount: (totalUsersCount) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
+        setFollowingInProgress: (isFollowingInProgress, userId) => {
+            dispatch(setFollowingInProgressAC(isFollowingInProgress, userId))
         },
-        setPreloader: (isFetching) => {
-            dispatch(setPreloaderAC(isFetching))
+        getUsersThunkCreator: (currentPage: number, pageSize: number) => {
+            dispatch(getUsersThunkCreator(currentPage, pageSize))
         },
-        setFollowingInProgress:(isFollowingInProgress,userId)=>{
-          dispatch(setFollowingInProgressAC(isFollowingInProgress,userId))
+        followThunkCreator: (userId) => {
+            dispatch(followThunkCreator(userId))
+        },
+        unFollowThunkCreator: (userId) => {
+            dispatch(unFollowThunkCreator(userId))
         },
     }
 }
@@ -77,24 +77,12 @@ export type FindFriendsAPIContainerPropsType = MapStatePropsType & MapDispatchPr
 class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPropsType, RootState> {
 
     componentDidMount() {
-        this.props.setPreloader(true);
-
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setPreloader(false);
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            })
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setPreloader(true);
         this.props.setCurrentPage(pageNumber);
-        userAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.setPreloader(false);
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsersThunkCreator(pageNumber, this.props.pageSize);
     }
 
 
@@ -113,6 +101,8 @@ class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPro
                 setFollowingInProgress={this.props.setFollowingInProgress}
                 isFollowingInProgress={this.props.isFollowingInProgress}
                 followingInProgress={this.props.followingInProgress}
+                followThunkCreator={this.props.followThunkCreator}
+                unFollowThunkCreator={this.props.unFollowThunkCreator}
             />
         );
     }

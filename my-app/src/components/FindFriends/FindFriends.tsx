@@ -17,6 +17,8 @@ type FindFriendsPropsType = {
     setFollowingInProgress:(isFollowingInProgress:boolean,userId:number)=>void
     isFollowingInProgress:boolean
     followingInProgress:Array<number>
+    followThunkCreator:(userId:number)=>void
+    unFollowThunkCreator:(userId:number)=>void
 }
 
 
@@ -51,6 +53,8 @@ function FindFriends(props: FindFriendsPropsType) {
                                             setFollowingInProgress={props.setFollowingInProgress}
                                             isFollowingInProgress={props.isFollowingInProgress}
                                             followingInProgress={props.followingInProgress}
+                                            followThunkCreator={props.followThunkCreator}
+                                            unFollowThunkCreator={props.unFollowThunkCreator}
                             />
                         )
                     })
