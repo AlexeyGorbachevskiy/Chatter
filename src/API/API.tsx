@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UsersArrayType} from "../redux/friendsReducer";
 
 
 const axiosInstance = axios.create(
@@ -9,46 +10,78 @@ const axiosInstance = axios.create(
     },
 );
 
+
+type GetUsersResponseType = {
+    items: Array<UsersArrayType>
+    totalCount: number
+    error: string
+}
+type FollowResponseType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
+}
 export const friendsAPI = {
     getUsers(currentPage: number, pageSize: number) {
         debugger
         return (
-            axiosInstance.get(`users?page=${currentPage}&count=${pageSize}`)
+            axiosInstance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${pageSize}`)
                 .then(response => response.data)
 
         )
     },
     follow(userId: number) {
         return (
-            axiosInstance.post(`follow/${userId}`)
+            axiosInstance.post<FollowResponseType>(`follow/${userId}`)
         )
     },
     unFollow(userId: number) {
         return (
-            axiosInstance.delete(`follow/${userId}`)
+            axiosInstance.delete<FollowResponseType>(`follow/${userId}`)
         )
     },
 }
 
+
+type GetProfileResponseType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string | null
+        large: string | null
+    }
+
+}
 export const profileAPI = {
     getProfileInfo(userId: string) {
         return (
-            axiosInstance.get(`profile/${userId}`)
+            axiosInstance.get<GetProfileResponseType>(`profile/${userId}`)
         )
     }
 }
 
 
-type GetAuthInfoType = {
+type GetAuthInfoResponseType = {
     data: { id: number, email: string, login: string }
     resultCode: number
     messages: Array<string>
 }
-
 export const authAPI = {
     getAuthInfo() {
         return (
-            axiosInstance.get<GetAuthInfoType>(`auth/me`)
+            axiosInstance.get<GetAuthInfoResponseType>(`auth/me`)
         )
     }
 }

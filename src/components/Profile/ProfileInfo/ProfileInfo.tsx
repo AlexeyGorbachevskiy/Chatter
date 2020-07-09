@@ -28,18 +28,20 @@ function ProfileInfo(props: ProfileInfo) {
                 </div>
                 <div className={obj.data_items}>
                     <div className={obj.date}>
-                        <p>About me: {props.profile?.aboutMe ? props.profile?.aboutMe : 'I love Javascript.'}</p>
+                        <p>About me: I love Javascript</p>
                     </div>
                     <div className={obj.city}>
                         <p>Job search
                             status: {props.profile?.lookingForAJob ? props.profile?.lookingForAJob : 'Looking for a job.'}</p>
                     </div>
                     <div className={obj.education}>
-                        <p>Job description: {props.profile?.lookingForAJobDescription ? props.profile.lookingForAJobDescription : 'Looking for a frontend developer position.'}
+                        <p>Job
+                            description: {props.profile?.lookingForAJobDescription ? props.profile.lookingForAJobDescription : 'Looking for a frontend developer position.'}
                         </p>
                     </div>
                     <div className={obj.marital_status}>
-                        <p>My contacts: {props.profile?.contacts.twitter ? props.profile?.contacts.twitter : 'Oops.'}</p>
+                        <p>My
+                            contacts: {props.profile?.contacts.twitter ? props.profile?.contacts.twitter : 'Oops.'}</p>
                     </div>
                 </div>
             </div>
