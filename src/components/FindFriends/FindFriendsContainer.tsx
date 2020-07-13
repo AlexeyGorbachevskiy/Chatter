@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
+import {compose} from "redux";
 import {RootState} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import {
     followAC, followThunkCreator,
     FriendsReducerActionTypes, getUsersThunkCreator,
@@ -11,6 +11,7 @@ import {
 } from "../../redux/friendsReducer";
 import FindFriends from "./FindFriends";
 import {ThunkDispatch} from "redux-thunk";
+import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 
 
 export type MapStatePropsType = {
@@ -109,8 +110,15 @@ class FindFriendsAPIContainer extends React.Component<FindFriendsAPIContainerPro
 }
 
 
-let FindFriendsContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
-(mapStateToProps, mapDispatchToProps)(FindFriendsAPIContainer);
+export default compose(
+    withAuthRedirect,
+    connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
+    (mapStateToProps, mapDispatchToProps)
+)(FindFriendsAPIContainer)
 
 
-export default FindFriendsContainer;
+// without compose
+// let AuthRedirectComponent = withAuthRedirect(FindFriendsAPIContainer);
+// let FindFriendsContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
+// (mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+// export default FindFriendsContainer;

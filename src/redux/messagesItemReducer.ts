@@ -1,8 +1,8 @@
-type DialogsDataArray = {
+export type DialogsDataArray = {
     id: number
     name: string
 }
-type MessagesDataArray = {
+export type MessagesDataArray = {
     id: number
     messageText: string
 }

@@ -1,5 +1,6 @@
 import React, {Dispatch} from 'react';
 import {
+    DialogsDataArray, MessagesDataArray,
     MessagesReducerActionTypes,
     sendMessageBodyActionCreator,
     updateNewMessageBodyActionCreator
@@ -7,7 +8,6 @@ import {
 import MessageItem from "./MessageItem";
 import {connect} from "react-redux";
 import {RootState} from "../../../redux/redux-store";
-import {DialogsDataArray, MessagesDataArray} from "../Messages";
 
 
 type MapStatePropsType = {
@@ -39,7 +39,7 @@ let mapDispatchToProps = (dispatch: Dispatch<MessagesReducerActionTypes>): MapDi
         }
     }
 };
-let MessageItemContainer = connect<MapStatePropsType,MapDispatchPropsType,{},RootState>(mapStateToProps, mapDispatchToProps)(MessageItem);
+let MessageItemContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>(mapStateToProps, mapDispatchToProps)(MessageItem);
 
 
 export default MessageItemContainer;

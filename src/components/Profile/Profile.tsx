@@ -2,7 +2,7 @@ import React from 'react';
 import obj from './Profile.module.css';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import {ProfileContainerPropsType, WithRouterPropsType} from "./ProfileContainer";
+import {WithRouterPropsType} from "./ProfileContainer";
 import Preloader from "../Common/Preloader/Preloader";
 
 
@@ -25,7 +25,10 @@ function Profile(props: WithRouterPropsType) {
     }
     return (
         <div className={obj.content}>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}
+            />
             <MyPostsContainer/>
         </div>
     );

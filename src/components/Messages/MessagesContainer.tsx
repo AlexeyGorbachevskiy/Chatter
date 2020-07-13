@@ -1,29 +1,33 @@
 import React from 'react';
-import DialogItem from './DialogItem/DialogItem';
 import {connect} from "react-redux";
+import {compose} from "redux";
 import {RootState} from "../../redux/redux-store";
 import Messages from "./Messages";
+import {DialogsDataArray} from "../../redux/messagesItemReducer";
+import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 
-type DialogsDataArray = {
-    id: number
-    name: string
-}
 
-type MapStatePropsType = {
-    dialogElements: JSX.Element[]
+export type MapStatePropsType = {
+    dialogElements: Array<DialogsDataArray>
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        dialogElements: state.messagesPage.dialogsData.map((t: DialogsDataArray) => {
-            return <DialogItem key={t.id} user_name={t.name} user_id={t.id}/>
-        })
+        dialogElements: state.messagesPage.dialogsData,
     }
 }
 
 
-let MessagesContainer = connect<MapStatePropsType, {}, {}, RootState>
-(mapStateToProps, {})(Messages);
+let MessagesContainer = compose(
+    withAuthRedirect,
+    connect<MapStatePropsType, {}, {}, RootState>
+    (mapStateToProps, {}),
+)(Messages)
+
+// without compose
+// let AuthRedirectComponent = WithAuthRedirect(Messages);
+// let MessagesContainer = connect<MapStatePropsType, {}, {}, RootState>
+// (mapStateToProps, {})(AuthRedirectComponent);
 
 
 export default MessagesContainer;

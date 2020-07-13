@@ -1,26 +1,31 @@
 import React from 'react';
-import FriendItem from './FriendItem/FriendItem';
 import {connect} from "react-redux";
+import {compose} from "redux";
 import {RootState} from "../../redux/redux-store";
 import Friends from "./Friends";
+import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 import {UsersArrayType} from "../../redux/friendsReducer";
 
 
 type MapStatePropsType = {
-    users: JSX.Element[]
+    users: Array<UsersArrayType>
+    isAuth: boolean
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        users: state.findFriendsPage.users.filter((u:UsersArrayType) => u.followed).map((t: UsersArrayType) => {
-            return (
-                <FriendItem key={t.id} users={t}/>
-            )
-        })
+        users: state.findFriendsPage.users,
+        isAuth: state.auth.isAuth,
     }
 }
 
 
-let FriendsContainer = connect<MapStatePropsType, {}, {}, RootState>(mapStateToProps, {})(Friends);
+export default compose(
+    withAuthRedirect,
+    connect<MapStatePropsType, {}, {}, RootState>(mapStateToProps, {}),
+)(Friends)
 
-export default FriendsContainer;
+//without compose
+// let AuthRedirectComponent = withAuthRedirect(Friends);
+// let FriendsContainer = connect<MapStatePropsType, {}, {}, RootState>(mapStateToProps, {})(AuthRedirectComponent);
+// export default FriendsContainer;

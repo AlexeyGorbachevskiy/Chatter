@@ -1,13 +1,15 @@
 import React from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
+import {compose} from "redux";
 import {RootState} from "../../redux/redux-store";
 import {
-    getProfileInfoThunkCreator, ProfileReducerActionTypes,
-    ProfileType,
+    getProfileInfoThunkCreator, getStatusThunkCreator, ProfileReducerActionTypes,
+    ProfileType, updateStatusThunkCreator,
 } from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ThunkDispatch} from "redux-thunk";
+import {withAuthRedirect} from "../Hoc/withAuthRedirect";
 
 
 export type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -22,8 +24,16 @@ class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
         if (!userId) {
             userId = '8963';
         }
-        this.props.getProfileInfoThunkCreator(userId)
+        this.props.getProfileInfo(userId);
+        this.props.getStatus(parseInt(userId));
     }
+
+    componentDidUpdate(prevProps: Readonly<WithRouterPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({...this.state, status: this.props.status})
+        }
+    }
+
 
     render() {
         return (
@@ -34,25 +44,37 @@ class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
 
 type MapStatePropsType = {
     profile: ProfileType | null
+    status: string
 }
 type MapDispatchPropsType = {
-    getProfileInfoThunkCreator: (userId: string) => void
+    getProfileInfo: (userId: string) => void
+    getStatus: (userId: number) => void
+    updateStatus: (status: string) => void
 }
 
 const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, ProfileReducerActionTypes>)
     : MapDispatchPropsType => {
     return {
-        getProfileInfoThunkCreator: (userId) => dispatch(getProfileInfoThunkCreator(userId))
+        getProfileInfo: (userId) => dispatch(getProfileInfoThunkCreator(userId)),
+        getStatus: (userId: number) => dispatch(getStatusThunkCreator(userId)),
+        updateStatus: (status: string) => dispatch(updateStatusThunkCreator(status)),
     }
 }
 
+export default compose(
+    withAuthRedirect,
+    withRouter,
+    connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
+    (mapStateToProps, mapDispatchToProps)
+)(ProfileContainer)
 
-let WithUrlDataContainer = withRouter(ProfileContainer);
-
-export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
-(mapStateToProps, mapDispatchToProps)(WithUrlDataContainer);
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+// let WithUrlDataContainer = withRouter(AuthRedirectComponent);
+// export default connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>
+// (mapStateToProps, mapDispatchToProps)(WithUrlDataContainer);

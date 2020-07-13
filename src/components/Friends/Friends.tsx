@@ -1,11 +1,11 @@
 import React from 'react';
 import obj from './Friends.module.css';
-import axios from "axios";
 import {UsersArrayType} from "../../redux/friendsReducer";
+import FriendItem from "./FriendItem/FriendItem";
 
 
 type FriendsPropsType = {
-    users: JSX.Element[]
+    users: Array<UsersArrayType>
 }
 
 function Friends(props: FriendsPropsType) {
@@ -13,7 +13,11 @@ function Friends(props: FriendsPropsType) {
     return (
         <div className={obj.friends_container}>
             <div className={obj.friends_list}>
-                {props.users}
+                {props.users.filter((u: UsersArrayType) => u.followed).map((t: UsersArrayType) => {
+                    return (
+                        <FriendItem key={t.id} users={t}/>
+                    )
+                })}
             </div>
         </div>
     );

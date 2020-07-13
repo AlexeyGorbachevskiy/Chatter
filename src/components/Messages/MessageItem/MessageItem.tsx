@@ -2,7 +2,7 @@ import React, {ChangeEvent} from 'react';
 import obj from './MessageItem.module.css';
 import YourMessage from './YourMessage/YourMessage';
 import NotYourMessage from './NotYourMessage/NotYourMessage';
-import {DialogsDataArray, MessagesDataArray} from "../Messages";
+import {DialogsDataArray, MessagesDataArray} from "../../../redux/messagesItemReducer";
 
 export type MessagesPageType = {
     dialogsData: Array<DialogsDataArray>

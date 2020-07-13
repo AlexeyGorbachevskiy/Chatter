@@ -10,6 +10,7 @@ import MessagesContainer from "./components/Messages/MessagesContainer";
 import FindFriendsContainer from "./components/FindFriends/FindFriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
                 <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
                 <Route path='/findFriends' render={() => <FindFriendsContainer/>}/>
+                <Route path='/login' render={() => <Login/>}/>
                 {/*<Route path='/profile' component={Profile}/>*/}
             </div>
         </BrowserRouter>

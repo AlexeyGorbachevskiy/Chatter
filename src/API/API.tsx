@@ -21,6 +21,7 @@ type FollowResponseType = {
     messages: Array<string>
     data: {}
 }
+
 export const friendsAPI = {
     getUsers(currentPage: number, pageSize: number) {
         debugger
@@ -69,7 +70,17 @@ export const profileAPI = {
         return (
             axiosInstance.get<GetProfileResponseType>(`profile/${userId}`)
         )
-    }
+    },
+    getStatus(userId: number){
+        return (
+            axiosInstance.get<string>(`profile/status/${userId}`)
+        )
+    },
+    updateStatus(status: string){
+        return (
+            axiosInstance.put(`profile/status/`,{status:status})
+        )
+    },
 }
 
 
