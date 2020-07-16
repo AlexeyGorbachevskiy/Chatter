@@ -33,6 +33,7 @@
 .input {
     margin-right: 5%;
     width: 50%;
+    height: 50%;
     word-break: break-word;
     outline: none;
     resize: none;

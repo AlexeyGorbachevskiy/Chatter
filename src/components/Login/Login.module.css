@@ -1,7 +1,5 @@
-*{
-    font-family: -apple-system;
-}
-.login_wrapper{
+
+.login_wrapper {
     height: 100%;
     width: 100%;
     display: flex;
@@ -10,12 +8,14 @@
     align-items: center;
 }
 
-.form_header{
+.form_header {
+    font-family: -apple-system;
     color: white;
-   border-bottom: 3px solid red;
+    border-bottom: 3px solid red;
     font-size: 25px;
 }
-.form{
+
+.form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -29,7 +29,7 @@
 }
 
 
-.login_input{
+.login_input {
     margin: 10px 0;
     outline: none;
     width: 250px;
@@ -37,7 +37,8 @@
     border-radius: 4px;
 
 }
-.password_input{
+
+.password_input {
     margin: 10px 0;
     outline: none;
     width: 250px;
@@ -45,17 +46,19 @@
     border-radius: 4px;
 }
 
-.remember{
+.remember {
     margin: 10px 0 0 5px;
     color: red;
 }
-.login_btn_wrapper{
+
+.login_btn_wrapper {
     width: 350px;
     display: flex;
     justify-content: flex-end;
 }
 
-.login_btn{
+.login_btn {
+    font-family: -apple-system;
     font-size: 16px;
     margin-right: 50px;
     cursor: pointer;

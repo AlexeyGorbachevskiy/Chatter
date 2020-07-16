@@ -3,7 +3,6 @@ import {
     DialogsDataArray, MessagesDataArray,
     MessagesReducerActionTypes,
     sendMessageBodyActionCreator,
-    updateNewMessageBodyActionCreator
 } from "../../../redux/messagesItemReducer";
 import MessageItem from "./MessageItem";
 import {connect} from "react-redux";
@@ -19,8 +18,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    sendMessageClick: () => void
-    changeTextArea: (currentValue: string) => void
+    sendMessageClick: (newMessageBody:string) => void
 }
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
@@ -31,15 +29,13 @@ let mapStateToProps = (state: RootState): MapStatePropsType => {
 
 let mapDispatchToProps = (dispatch: Dispatch<MessagesReducerActionTypes>): MapDispatchPropsType => {
     return {
-        sendMessageClick: () => {
-            dispatch(sendMessageBodyActionCreator());
+        sendMessageClick: (newMessageBody:string) => {
+            dispatch(sendMessageBodyActionCreator(newMessageBody));
         },
-        changeTextArea: (currentValue: string) => {
-            dispatch(updateNewMessageBodyActionCreator(currentValue));
-        }
     }
 };
-let MessageItemContainer = connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>(mapStateToProps, mapDispatchToProps)(MessageItem);
+let MessageItemContainer =
+    connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>(mapStateToProps, mapDispatchToProps)(MessageItem);
 
 
 export default MessageItemContainer;

@@ -43,8 +43,7 @@ let initialState = {
     status: '' as string
 }
 
-export type ProfileReducerActionTypes =
-    AddPostACType | UpdateNewPostTextACType | SetUserProfileACType | SetStatusACType
+export type ProfileReducerActionTypes = AddPostACType | SetUserProfileACType | SetStatusACType
 
 const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionTypes): initialStateType => {
 
@@ -52,7 +51,7 @@ const profileReducer = (state: initialStateType = initialState, action: ProfileR
         case ADD_POST: {
             let postDataPushItem = {
                 id: 3,
-                message: state.newPostText,
+                message: action.newPostText,
                 like: 9,
             }
             return {
@@ -62,13 +61,6 @@ const profileReducer = (state: initialStateType = initialState, action: ProfileR
             };
 
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state,
-                newPostText: action.newText,
-            };
-        }
-
         case SET_USER_PROFILE: {
             return {
                 ...state, profile: action.profile
@@ -87,12 +79,10 @@ const profileReducer = (state: initialStateType = initialState, action: ProfileR
 
 export type AddPostACType = {
     type: typeof ADD_POST
+    newPostText: string
 
 }
-export type UpdateNewPostTextACType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
+
 export type SetUserProfileACType = {
     type: typeof SET_USER_PROFILE,
     profile: ProfileType
@@ -103,14 +93,10 @@ export type SetStatusACType = {
 }
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
-export const addPostActionCreator = (): AddPostACType => ({type: ADD_POST});
-export const updateNewPostTextActionCreator = (newText: string): UpdateNewPostTextACType => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText
-});
+export const addPostActionCreator = (newPostText: string): AddPostACType => ({type: ADD_POST, newPostText});
+
 export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => ({type: SET_USER_PROFILE, profile});
 
 export const getProfileInfoThunkCreator = (userId: string)

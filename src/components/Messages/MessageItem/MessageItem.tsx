@@ -3,6 +3,7 @@ import obj from './MessageItem.module.css';
 import YourMessage from './YourMessage/YourMessage';
 import NotYourMessage from './NotYourMessage/NotYourMessage';
 import {DialogsDataArray, MessagesDataArray} from "../../../redux/messagesItemReducer";
+import {AddMessageFormRedux} from "./AddMessageForm";
 
 export type MessagesPageType = {
     dialogsData: Array<DialogsDataArray>
@@ -12,16 +13,14 @@ export type MessagesPageType = {
 
 type MessageItemPropsType = {
     messagesPage: MessagesPageType
-    sendMessageClick: () => void
-    changeTextArea: (currentValue: string) => void
+    sendMessageClick: (newMessageBody: string) => void
 }
 
 function MessageItem(props: MessageItemPropsType) {
 
-    const onSendMessageClickHandler = () => props.sendMessageClick();
-    const onChangeTextAreaHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let currentValue = e.currentTarget.value;
-        props.changeTextArea(currentValue);
+
+    let addNewMessage = (values: any) => {
+        props.sendMessageClick(values.newMessageBody);
     }
     return (
         <div className={obj.message_side_container}>
@@ -29,12 +28,9 @@ function MessageItem(props: MessageItemPropsType) {
                 <NotYourMessage/>
                 <YourMessage messagesPage={props.messagesPage}/>
             </div>
-            <div className={obj.input_container}>
-                <textarea onChange={onChangeTextAreaHandler} value={props.messagesPage.newMessageBody} wrap={'off'}
-                          className={obj.input}
-                          placeholder={'Write a message...'}/>
-                <button onClick={onSendMessageClickHandler} className={obj.send_btn}> Send</button>
-            </div>
+
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
+
         </div>
     )
 }
