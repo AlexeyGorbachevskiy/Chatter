@@ -1,0 +1,10 @@
+import React from 'react'
+
+
+export const FormsControls = ({input,meta,...props}:any) => {
+    return (
+        <div>
+            <textarea {...input} {...props}  />
+        </div>
+    )
+}
