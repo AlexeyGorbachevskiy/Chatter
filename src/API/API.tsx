@@ -94,6 +94,16 @@ export const authAPI = {
         return (
             axiosInstance.get<GetAuthInfoResponseType>(`auth/me`)
         )
+    },
+    login(email:string,password:string,rememberMe=false){
+        return(
+            axiosInstance.post(`auth/login`,{email,password,rememberMe})
+        )
+    },
+    logout(){
+        return(
+            axiosInstance.delete(`auth/login`)
+        )
     }
 }
 

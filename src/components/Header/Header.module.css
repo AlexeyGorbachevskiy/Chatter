@@ -32,7 +32,6 @@
 
 .login {
     grid-area: login;
-    margin-right: 50px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -40,12 +39,8 @@
 }
 
 
-
-.item {
-    margin-left: 50px;
-}
-
-.login_link{
+.login_link {
+    margin-right: 50px;
     font-size: 20px;
     line-height: 40px;
     text-decoration: none;
@@ -64,4 +59,34 @@
 .login_link:hover, .login_link:active, .login_link:focus {
     cursor: pointer;
     color: #f84545;
+}
+
+
+.auth_wrapper {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.auth_wrapper p {
+    margin-right: 10%;
+}
+
+
+.logout_btn {
+    margin-right: 50px;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    border: solid transparent;
+    color: white;
+    transition: color;
+    transition-duration: 500ms;
+    font-family: -apple-system;
+    font-size: 20px;
+}
+
+.logout_btn:hover {
+    color: red;
 }

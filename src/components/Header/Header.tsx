@@ -15,14 +15,17 @@ function Header(props: HeaderContainerPropsType) {
                 </div>
 
                 <div className={obj.login}>
-                    <div className={obj.item}>
                         {
                             props.isAuth
-                                ? <p>{props.userData.login}</p>
+                                ?
+                                <div className={obj.auth_wrapper}>
+                                    <p>{props.userData!.login}</p>
+                                    <button className={obj.logout_btn} onClick={props.logout}>Log Out</button>
+                                </div>
                                 :
                                 <NavLink className={obj.login_link} to='/login'>Log In</NavLink>
+
                         }
-                    </div>
                 </div>
 
             </div>

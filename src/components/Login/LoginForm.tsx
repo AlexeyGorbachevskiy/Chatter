@@ -1,8 +1,10 @@
 import style from "./Login.module.css";
 import React from "react";
 import {Field} from "redux-form";
+import {LoginInput} from "../Common/FormsControls/FormsControls";
+import {maxLengthCreator, required} from "../Utils/Validators/validators";
 
-
+const maxLength = maxLengthCreator(40)
 
 function LoginForm(props: any) {
     return (
@@ -12,17 +14,32 @@ function LoginForm(props: any) {
 
             <div className={style.fields}>
                 <div>
-                    <Field name={'login'} className={style.login_input} placeholder='Login' component={'input'}
-                           type="text"/>
+                    <Field name={'email'}
+                        // className={style.input}
+                           placeholder='Email' component={LoginInput}
+                           type="text"
+                           validate={[required, maxLength]}
+                    />
                 </div>
                 <div>
-                    <Field name={'password'} className={style.password_input} placeholder='Password' component={'input'}
-                           type="password"/>
+                    <Field name={'password'}
+                        // className={style.input}
+                           placeholder='Password' component={LoginInput}
+                           type="password"
+                           validate={[required, maxLength]}
+                    />
                 </div>
                 <div className={style.remember}>
-                    <Field name={'remember'} component={'input'} type="checkbox"/>
+                    <Field name={'rememberMe'} component={'input'} type="checkbox"/>
                     <> Remember</>
                 </div>
+                {props.error
+                    ?
+                    <div className={style.error}>
+                        {props.error}
+                    </div>
+                    : ''
+                }
             </div>
 
             <div className={style.login_btn_wrapper}>

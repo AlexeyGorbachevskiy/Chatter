@@ -29,22 +29,15 @@
 }
 
 
-.login_input {
-    margin: 10px 0;
-    outline: none;
-    width: 250px;
-    height: 30px;
-    border-radius: 4px;
-
-}
-
-.password_input {
+.input {
     margin: 10px 0;
     outline: none;
     width: 250px;
     height: 30px;
     border-radius: 4px;
 }
+
+
 
 .remember {
     margin: 10px 0 0 5px;
@@ -58,7 +51,6 @@
 }
 
 .login_btn {
-    font-family: -apple-system;
     font-size: 16px;
     margin-right: 50px;
     cursor: pointer;
@@ -69,5 +61,11 @@
     border: none;
     border-radius: 4px;
     color: white;
+    font-family: -apple-system;
 
+}
+
+.error{
+    color: red;
+    margin-top: 15px;
 }

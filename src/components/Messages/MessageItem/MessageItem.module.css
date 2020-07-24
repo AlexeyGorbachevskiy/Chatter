@@ -30,16 +30,16 @@
     justify-content: center;
 }
 
-.input {
-    margin-right: 5%;
-    width: 50%;
-    height: 50%;
-    word-break: break-word;
-    outline: none;
-    resize: none;
-    overflow: auto;
-    font-size: 14px;
-}
+/*.input {*/
+/*    margin-right: 5%;*/
+/*    width: 50%;*/
+/*    height: 50%;*/
+/*    word-break: break-word;*/
+/*    outline: none;*/
+/*    resize: none;*/
+/*    overflow: auto;*/
+/*    font-size: 14px;*/
+/*}*/
 
 .send_btn {
     cursor: pointer;

@@ -1,15 +1,23 @@
 import React from 'react';
-import obj from "./MyPosts.module.css";
+import style from "./MyPosts.module.css";
 import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../Utils/Validators/validators";
+import {PostTextarea} from "../../Common/FormsControls/FormsControls";
 
-export function AddNewPostForm(props:any) {
+
+const maxLength = maxLengthCreator(10)
+
+
+export function AddNewPostForm(props: any) {
     return (
-        <form onSubmit={props.handleSubmit} className={obj.new_post_form}>
+        <form onSubmit={props.handleSubmit} className={style.new_post_form}>
             <h2>New Post</h2>
-            <Field className={obj.textarea} component='textarea' name='newPostText'
-                   placeholder={'What\'s new...'} rows={4} cols={60}
+            <Field component={PostTextarea} name='newPostText'
+                   placeholder={'What\'s new...'}
+                   rows={4} cols={60}
+                   validate={[required, maxLength]}
             />
-            <button className={obj.new_post_button}
+            <button className={style.new_post_button}
                     value={'Post'}><i className='fa fa-paper-plane'/> Post
             </button>
         </form>

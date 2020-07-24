@@ -22,10 +22,14 @@ class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if (!userId) {
-            userId = '8963';
+            if (this.props.authorizedUserId) {
+                userId = this.props.authorizedUserId.toString();
+
+            }
+
         }
-        this.props.getProfileInfo(userId);
-        this.props.getStatus(parseInt(userId));
+        this.props.getProfileInfo(userId!);
+        this.props.getStatus(parseInt(userId!));
     }
 
     componentDidUpdate(prevProps: Readonly<WithRouterPropsType>, prevState: Readonly<{}>, snapshot?: any) {
@@ -45,6 +49,8 @@ class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
 type MapStatePropsType = {
     profile: ProfileType | null
     status: string
+    authorizedUserId: number | null
+    isAuth: boolean
 }
 type MapDispatchPropsType = {
     getProfileInfo: (userId: string) => void
@@ -56,6 +62,8 @@ const mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
+        authorizedUserId: state.auth.data.id,
+        isAuth: state.auth.isAuth,
     }
 }
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, ProfileReducerActionTypes>)
