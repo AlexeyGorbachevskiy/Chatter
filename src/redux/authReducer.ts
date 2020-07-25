@@ -56,7 +56,7 @@ export const setAuthUserDataAC = (userData: UserDataType, isAuth: boolean): SetA
 export const getAuthInfoThunkCreator = (): ThunkAction<void, RootState, unknown, AuthReducerActionTypes> => {
     return (
         (dispatch, getState) => {
-            authAPI.getAuthInfo()
+            return authAPI.getAuthInfo()
                 .then(response => {
                     if (response.data.resultCode === 0) {
                         dispatch(setAuthUserDataAC(response.data.data, true));

@@ -13,17 +13,23 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import store, {RootState} from "./redux/redux-store";
-import {AuthReducerActionTypes, getAuthInfoThunkCreator} from "./redux/authReducer";
+import {AuthReducerActionTypes} from "./redux/authReducer";
 import {ThunkDispatch} from "redux-thunk";
 import {compose} from "redux";
+import {initializeAppThunkCreator} from "./redux/appReducer";
+import Preloader from "./components/Common/Preloader/Preloader";
 
-class App extends React.Component<MapDispatchPropsType, {}> {
+class App extends React.Component<MapDispatchPropsType & MapStatePropsType, {}> {
 
     componentDidMount() {
-        this.props.getAuthInfoThunkCreator();
+        this.props.initializeApp();
     }
 
     render() {
+
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
         return (
 
             <div className='container'>
@@ -45,25 +51,35 @@ class App extends React.Component<MapDispatchPropsType, {}> {
     }
 }
 
+type MapStatePropsType = {
+    initialized: boolean
+}
+
+const mapStateToProps = (state: RootState): MapStatePropsType => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+
 
 type MapDispatchPropsType = {
-    getAuthInfoThunkCreator: () => void
+    initializeApp: () => void
 }
 
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, AuthReducerActionTypes>)
     : MapDispatchPropsType => {
     return {
-        getAuthInfoThunkCreator: () => {
-            dispatch(getAuthInfoThunkCreator())
-        }
+        initializeApp: () => {
+            dispatch(initializeAppThunkCreator())
+        },
     }
 }
 
 
 let AppContainer = compose<React.ComponentType>(
     withRouter,
-    connect<null, MapDispatchPropsType, {}, RootState>(null, mapDispatchToProps)
+    connect<MapStatePropsType, MapDispatchPropsType, {}, RootState>(mapStateToProps, mapDispatchToProps)
 )(App)
 
 
@@ -72,7 +88,7 @@ export const Chatter: React.FC = () => {
         <BrowserRouter>
             <React.StrictMode>
                 <Provider store={store}>
-            <AppContainer/>
+                    <AppContainer/>
                 </Provider>
             </React.StrictMode>
         </BrowserRouter>
