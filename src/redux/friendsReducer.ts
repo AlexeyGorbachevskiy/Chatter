@@ -136,6 +136,7 @@ export const setTotalUsersCountAC = (totalUsersCount: number): SetTotalUsersCoun
     totalUsersCount
 });
 export const setPreloaderAC = (isFetching: boolean): SetPreloaderACType => ({type: SET_PRELOADER, isFetching});
+
 export const setFollowingInProgressAC =
     (isFollowingInProgress: boolean,
      userId: number): SetFollowingInProgressACType => ({
@@ -150,6 +151,7 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number)
     return (
         (dispatch, getState) => {
             dispatch(setPreloaderAC(true));
+            dispatch(setCurrentPageAC(currentPage));
 
             friendsAPI.getUsers(currentPage, pageSize)
                 .then(data => {

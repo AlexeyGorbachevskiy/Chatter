@@ -12,6 +12,14 @@ import {
 import FindFriends from "./FindFriends";
 import {ThunkDispatch} from "redux-thunk";
 import {withAuthRedirect} from "../Hoc/withAuthRedirect";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getIsFollowingInProgress,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersSelector
+} from "../../redux/usersSelectors";
 
 
 export type MapStatePropsType = {
@@ -36,13 +44,13 @@ export type MapDispatchPropsType = {
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        users: state.findFriendsPage.users,
-        pageSize: state.findFriendsPage.pageSize,
-        totalUsersCount: state.findFriendsPage.totalUsersCount,
-        currentPage: state.findFriendsPage.currentPage,
-        isFetching: state.findFriendsPage.isFetching,
-        isFollowingInProgress: state.findFriendsPage.isFollowingInProgress,
-        followingInProgress: state.findFriendsPage.followingInProgress,
+        users: getUsersSelector(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        isFollowingInProgress: getIsFollowingInProgress(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 let mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, FriendsReducerActionTypes>)
