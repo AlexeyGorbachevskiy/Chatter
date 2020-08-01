@@ -55,13 +55,11 @@ export const setAuthUserDataAC = (userData: UserDataType, isAuth: boolean): SetA
 
 export const getAuthInfoThunkCreator = (): ThunkAction<void, RootState, unknown, AuthReducerActionTypes> => {
     return (
-        (dispatch, getState) => {
-            return authAPI.getAuthInfo()
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        dispatch(setAuthUserDataAC(response.data.data, true));
-                    }
-                })
+        async (dispatch, getState) => {
+            let response = await authAPI.getAuthInfo();
+            if (response.data.resultCode === 0) {
+                dispatch(setAuthUserDataAC(response.data.data, true));
+            }
         }
     )
 };
@@ -70,17 +68,16 @@ export const getAuthInfoThunkCreator = (): ThunkAction<void, RootState, unknown,
 //TODO --- AuthReducerActionTypes instead any
 export const loginThunkCreator = (email: string, password: string, rememberMe: boolean): ThunkAction<void, RootState, unknown, any> => {
     return (
-        (dispatch, getState) => {
-            authAPI.login(email, password, rememberMe)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        dispatch(getAuthInfoThunkCreator())
-                    } else {
-                        const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
-                        const action = stopSubmit('login', {_error: message});
-                        dispatch(action);
-                    }
-                })
+        async (dispatch, getState) => {
+            let response = await authAPI.login(email, password, rememberMe)
+
+            if (response.data.resultCode === 0) {
+                dispatch(getAuthInfoThunkCreator())
+            } else {
+                const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+                const action = stopSubmit('login', {_error: message});
+                dispatch(action);
+            }
         }
     )
 };

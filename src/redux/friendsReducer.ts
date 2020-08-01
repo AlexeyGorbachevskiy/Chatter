@@ -149,16 +149,13 @@ export const setFollowingInProgressAC =
 export const getUsersThunkCreator = (currentPage: number, pageSize: number)
     : ThunkAction<void, RootState, unknown, FriendsReducerActionTypes> => {
     return (
-        (dispatch, getState) => {
+        async (dispatch, getState) => {
             dispatch(setPreloaderAC(true));
             dispatch(setCurrentPageAC(currentPage));
-
-            friendsAPI.getUsers(currentPage, pageSize)
-                .then(data => {
-                    dispatch(setPreloaderAC(false));
-                    dispatch(setUsersAC(data.items));
-                    dispatch(setTotalUsersCountAC(data.totalCount));
-                })
+            const data = await friendsAPI.getUsers(currentPage, pageSize)
+            dispatch(setPreloaderAC(false));
+            dispatch(setUsersAC(data.items));
+            dispatch(setTotalUsersCountAC(data.totalCount));
         }
     )
 }
@@ -167,15 +164,13 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number)
 export const followThunkCreator = (userId: number)
     : ThunkAction<void, RootState, unknown, FriendsReducerActionTypes> => {
     return (
-        (dispatch, getState) => {
+        async (dispatch, getState) => {
             dispatch(setFollowingInProgressAC(true, userId));
-            friendsAPI.follow(userId)
-                .then(response => {
-                    if (response.data.resultCode == 0) {
-                        dispatch(followAC(userId));
-                    }
-                    dispatch(setFollowingInProgressAC(false, userId));
-                })
+            const response = await friendsAPI.follow(userId)
+            if (response.data.resultCode == 0) {
+                dispatch(followAC(userId));
+            }
+            dispatch(setFollowingInProgressAC(false, userId));
         }
     )
 }

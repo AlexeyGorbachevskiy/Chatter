@@ -3,6 +3,7 @@ import obj from "./FindFriends.module.css";
 import Preloader from "../Common/Preloader/Preloader";
 import {UsersArrayType} from "../../redux/friendsReducer";
 import FindFriendItem from "./FindFriedItem/FindFriendItem";
+import Paginator from "../Common/Paginator/Paginator";
 
 
 type FindFriendsPropsType = {
@@ -61,18 +62,7 @@ function FindFriends(props: FindFriendsPropsType) {
                 }
 
                 <span className={obj.footer_wrapper}>
-                        <button className={obj.back_btn}>
-                            <i className="fa fa-angle-double-left" aria-hidden="true"/>
-                            &nbsp; Back
-                         </button>
-                        <span className={obj.pages_wrapper}>
-                        {pages.map((pageNumber: number) => <span
-                            className={props.currentPage === pageNumber ? `${obj.page} ${obj.current_page_is_active}` : obj.page}
-                            key={pageNumber} onClick={() => props.onPageChanged(pageNumber)}>{pageNumber}</span>)}
-                        </span>
-                        <button className={obj.next_btn}> Next &nbsp;
-                            <i className="fa fa-angle-double-right" aria-hidden="true"/>
-                         </button>
+                       <Paginator pages={pages} currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
                 </span>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {createStore, combineReducers, applyMiddleware,compose} from 'redux';
 import profileReducer from "./profileReducer";
 import messagesItemReducer from "./messagesItemReducer";
 import friendsReducer from "./friendsReducer";
@@ -19,6 +19,20 @@ let rootReducer = combineReducers(
         app: appReducer,
     }
 );
+
+
+// Connecting of Redux Dev Tool
+
+// declare global {
+//         interface Window {
+//                 __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+//         }
+// }
+// const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
+// const store = createStore(rootReducer, /* preloadedState, */ composeEnhancers(
+//     applyMiddleware(thunkMiddleware)
+// ));
+// ------------------------------------------------------------------------------------------------------
 
 export type RootState = ReturnType<typeof rootReducer>
 

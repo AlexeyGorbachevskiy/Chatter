@@ -12,17 +12,17 @@ type PostDataArray = {
 export type MyPostsPropsType = {
     postData: Array<PostDataArray>
     newPostText: string
-    addPost: (newPostText:string) => void
+    addPost: (newPostText: string) => void
 }
 
-function MyPosts(props: MyPostsPropsType) {
+const MyPosts = React.memo((props: MyPostsPropsType) => {
 
     let postElements = props.postData.map((t: PostDataArray) => {
         return <Post key={t.id} message={t.message} like={t.like}/>
     });
 
 
-    const onAddPost=(values:any)=>{
+    const onAddPost = (values: any) => {
         props.addPost(values.newPostText);
     }
 
@@ -44,7 +44,7 @@ function MyPosts(props: MyPostsPropsType) {
             {postElements}
         </div>
     );
-}
+});
 
 
 export default MyPosts;

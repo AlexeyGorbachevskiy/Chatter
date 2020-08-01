@@ -4,15 +4,12 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import store from "./redux/redux-store";
-import {Provider} from "react-redux";
+
 import {Chatter} from "./App";
 
 
 ReactDOM.render(
-
-            <Chatter/>
-        ,
+    <Chatter/>,
     document.getElementById('root')
 );
 
