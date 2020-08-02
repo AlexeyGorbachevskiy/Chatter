@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/Chatter/static/css/main.0b87b466.chunk.css",
+    "main.js": "/Chatter/static/js/main.cfdfdedd.chunk.js",
+    "main.js.map": "/Chatter/static/js/main.cfdfdedd.chunk.js.map",
+    "runtime-main.js": "/Chatter/static/js/runtime-main.d51f4061.js",
+    "runtime-main.js.map": "/Chatter/static/js/runtime-main.d51f4061.js.map",
+    "static/css/2.63f8f4ca.chunk.css": "/Chatter/static/css/2.63f8f4ca.chunk.css",
+    "static/js/2.8b824ebe.chunk.js": "/Chatter/static/js/2.8b824ebe.chunk.js",
+    "static/js/2.8b824ebe.chunk.js.map": "/Chatter/static/js/2.8b824ebe.chunk.js.map",
+    "index.html": "/Chatter/index.html",
+    "precache-manifest.cf515af2ad7d7df0119739e47c1b2595.js": "/Chatter/precache-manifest.cf515af2ad7d7df0119739e47c1b2595.js",
+    "service-worker.js": "/Chatter/service-worker.js",
+    "static/css/2.63f8f4ca.chunk.css.map": "/Chatter/static/css/2.63f8f4ca.chunk.css.map",
+    "static/css/main.0b87b466.chunk.css.map": "/Chatter/static/css/main.0b87b466.chunk.css.map",
+    "static/js/2.8b824ebe.chunk.js.LICENSE.txt": "/Chatter/static/js/2.8b824ebe.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/Chatter/static/media/bright.96c93171.jpg",
+    "static/media/font-awesome.min.css": "/Chatter/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d51f4061.js",
+    "static/css/2.63f8f4ca.chunk.css",
+    "static/js/2.8b824ebe.chunk.js",
+    "static/css/main.0b87b466.chunk.css",
+    "static/js/main.cfdfdedd.chunk.js"
+  ]
+}
