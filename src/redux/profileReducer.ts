@@ -39,11 +39,11 @@ let initialState = {
         {id: 2, message: 'What\'s cooking, good looking?', like: 8},
     ] as Array<PostDataArray>,
     newPostText: '' as string,
-    profile: null as ProfileType | null,
+    profile: null as ProfileType | any,
     status: '' as string
 }
 
-export type ProfileReducerActionTypes = AddPostACType | SetUserProfileACType | SetStatusACType
+export type ProfileReducerActionTypes = AddPostACType | SetUserProfileACType | SetStatusACType | SavePhotoSuccessACType
 
 const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionTypes): initialStateType => {
 
@@ -72,6 +72,11 @@ const profileReducer = (state: initialStateType = initialState, action: ProfileR
                 ...state, status: action.status
             }
         }
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state, profile: {...state.profile, photos: action.photos}
+            }
+        }
         default:
             return state
     }
@@ -92,9 +97,15 @@ export type SetStatusACType = {
     status: string
 }
 
+export type SavePhotoSuccessACType = {
+    type: typeof SAVE_PHOTO_SUCCESS,
+    photos: PhotosType
+}
+
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 export const addPostActionCreator = (newPostText: string): AddPostACType => ({type: ADD_POST, newPostText});
 
 export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => ({type: SET_USER_PROFILE, profile});
@@ -112,6 +123,8 @@ export const getProfileInfoThunkCreator = (userId: string)
 }
 
 export const setStatusAC = (status: string): SetStatusACType => ({type: SET_STATUS, status});
+
+export const savePhotoSuccessAC = (photos: PhotosType): SavePhotoSuccessACType => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 export const getStatusThunkCreator = (userId: number)
     : ThunkAction<void, RootState, unknown, ProfileReducerActionTypes> => {
@@ -134,6 +147,20 @@ export const updateStatusThunkCreator = (status: string)
                         dispatch(setStatusAC(status))
                     }
                 })
+        }
+    )
+}
+
+
+export const savePhotoThunkCreator = (file: any)
+    : ThunkAction<void, RootState, unknown, ProfileReducerActionTypes> => {
+    return (
+        async (dispatch, getState) => {
+            let response = await profileAPI.savePhoto(file)
+
+            if (response.data.resultCode === 0) {
+                dispatch(savePhotoSuccessAC(response.data.data.photos))
+            }
         }
     )
 }

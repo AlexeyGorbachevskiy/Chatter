@@ -5,7 +5,7 @@ import {compose} from "redux";
 import {RootState} from "../../redux/redux-store";
 import {
     getProfileInfoThunkCreator, getStatusThunkCreator, ProfileReducerActionTypes,
-    ProfileType, updateStatusThunkCreator,
+    ProfileType, savePhotoThunkCreator, updateStatusThunkCreator,
 } from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ThunkDispatch} from "redux-thunk";
@@ -18,8 +18,7 @@ export type WithRouterPropsType = RouteComponentProps<PathParamsType> & ProfileC
 
 class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
 
-
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId;
         if (!userId) {
             if (this.props.authorizedUserId) {
@@ -32,16 +31,25 @@ class ProfileContainer extends React.Component<WithRouterPropsType, {}> {
         this.props.getStatus(parseInt(userId!));
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
     componentDidUpdate(prevProps: Readonly<WithRouterPropsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (prevProps.status !== this.props.status) {
             this.setState({...this.state, status: this.props.status})
         }
+
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+
     }
 
 
     render() {
         return (
-            <Profile {...this.props}/>
+            <Profile {...this.props} isOwner={!this.props.match.params.userId} savePhoto={this.props.savePhoto}/>
         );
     }
 }
@@ -56,6 +64,7 @@ type MapDispatchPropsType = {
     getProfileInfo: (userId: string) => void
     getStatus: (userId: number) => void
     updateStatus: (status: string) => void
+    savePhoto:(file:any)=>void
 }
 
 const mapStateToProps = (state: RootState): MapStatePropsType => {
@@ -72,6 +81,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, ProfileR
         getProfileInfo: (userId) => dispatch(getProfileInfoThunkCreator(userId)),
         getStatus: (userId: number) => dispatch(getStatusThunkCreator(userId)),
         updateStatus: (status: string) => dispatch(updateStatusThunkCreator(status)),
+        savePhoto:(file:any)=>dispatch(savePhotoThunkCreator(file))
     }
 }
 

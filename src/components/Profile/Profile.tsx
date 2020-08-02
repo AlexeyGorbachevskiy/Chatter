@@ -6,7 +6,9 @@ import {WithRouterPropsType} from "./ProfileContainer";
 import Preloader from "../Common/Preloader/Preloader";
 
 
-function Profile(props: WithRouterPropsType) {
+type ProfilePropsType = { isOwner: boolean, savePhoto:(file:any)=>void } & WithRouterPropsType
+
+function Profile(props: ProfilePropsType) {
     if (!props.profile) {
         return (
             <div className={obj.preloader_wrapper}>
@@ -28,6 +30,8 @@ function Profile(props: WithRouterPropsType) {
             <ProfileInfo profile={props.profile}
                          status={props.status}
                          updateStatus={props.updateStatus}
+                         isOwner={props.isOwner}
+                         savePhoto={props.savePhoto}
             />
             <MyPostsContainer/>
         </div>

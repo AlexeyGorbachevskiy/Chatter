@@ -71,14 +71,21 @@ export const profileAPI = {
             axiosInstance.get<GetProfileResponseType>(`profile/${userId}`)
         )
     },
-    getStatus(userId: number){
+    getStatus(userId: number) {
         return (
             axiosInstance.get<string>(`profile/status/${userId}`)
         )
     },
-    updateStatus(status: string){
+    updateStatus(status: string) {
         return (
-            axiosInstance.put(`profile/status/`,{status:status})
+            axiosInstance.put(`profile/status/`, {status: status})
+        )
+    },
+    savePhoto(file: any) {
+        const formData = new FormData();
+        formData.append('image', file)
+        return (
+            axiosInstance.put(`profile/photo/`, formData, {headers: {'Content-Type': 'multipart/form-data'}})
         )
     },
 }
@@ -95,13 +102,13 @@ export const authAPI = {
             axiosInstance.get<GetAuthInfoResponseType>(`auth/me`)
         )
     },
-    login(email:string,password:string,rememberMe=false){
-        return(
-            axiosInstance.post(`auth/login`,{email,password,rememberMe})
+    login(email: string, password: string, rememberMe = false) {
+        return (
+            axiosInstance.post(`auth/login`, {email, password, rememberMe})
         )
     },
-    logout(){
-        return(
+    logout() {
+        return (
             axiosInstance.delete(`auth/login`)
         )
     }

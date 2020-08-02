@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    addPostActionCreator, PostDataArray, ProfileReducerActionTypes,
+    addPostActionCreator, PostDataArray, ProfileReducerActionTypes, ProfileType,
 } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
@@ -11,6 +11,7 @@ import {Dispatch} from 'redux';
 type MapStatePropsType = {
     postData: Array<PostDataArray>
     newPostText: string
+    profile: ProfileType | null
 }
 type MapDispatchPropsType = {
     addPost: (newPostText:string) => void
@@ -21,6 +22,7 @@ let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
         postData: state.profilePage.postData,
         newPostText: state.profilePage.newPostText,
+        profile: state.profilePage.profile
     }
 }
 

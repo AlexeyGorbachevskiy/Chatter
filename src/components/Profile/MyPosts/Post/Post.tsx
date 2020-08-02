@@ -1,9 +1,11 @@
 import React from 'react';
 import obj from './Post.module.css';
+import {ProfileType} from "../../../../redux/profileReducer";
 
 type PostPropsType = {
     message: string
     like: number
+    profile: ProfileType | null
 }
 
 function Post(props: PostPropsType) {
@@ -12,13 +14,17 @@ function Post(props: PostPropsType) {
         <div className={obj.old_posts}>
 
             <div className={obj.img_wrapper}>
-                <img className={obj.ava} src={process.env.PUBLIC_URL+'/img/default.png'} alt='Avatar'/>
+                <img className={obj.ava} src={
+                    props.profile?.photos.small ?
+                        props.profile?.photos.small :
+                        process.env.PUBLIC_URL + '/img/default.png'} alt='Avatar'
+                />
             </div>
 
             <div className={obj.old_post_item}>
                 <div className={obj.old_post_form}>
                     <div className={obj.user_name}><h4>Alexey Gorbachevskiy</h4></div>
-                    <textarea  value={props.message} readOnly className={obj.textarea}
+                    <textarea value={props.message} readOnly className={obj.textarea}
                               rows={4} cols={60} id='new_post_text_area' name='new_post_text_area'/>
                     <div className={obj.buttons_wrapper}>
                         <div className={obj.like}><p>Like: {props.like}</p></div>

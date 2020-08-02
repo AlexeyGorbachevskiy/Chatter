@@ -1,26 +1,46 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import style from './ProfileInfo.module.css';
 import {ProfileType} from "../../../redux/profileReducer";
 import ProfileStatus from './ProfileStatus'
 
 type ProfileInfo = {
     profile: ProfileType | null
-    status:string
-    updateStatus:(status:string)=>void
+    status: string
+    updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto:(file:any)=>void
 }
 
 function ProfileInfo(props: ProfileInfo) {
+
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files!.length) {
+            props.savePhoto(e.target.files![0])
+        }
+    }
     return (
         <div className={style.data_wrapper}>
             <div className={style.ava_wrapper}>
                 <img className={style.ava}
-                     src={props.profile?.photos.large
-                         ?
+                     src={
                          props.profile?.photos.large
-                         : process.env.PUBLIC_URL + '/img/default.png'}
+                             ?
+                             props.profile?.photos.large
+                             : process.env.PUBLIC_URL + '/img/default.png'
+                     }
                      alt='Avatar'
                 />
             </div>
+
+            {
+                props.isOwner &&
+                <input
+                    className={style.choose_img}
+                    type={'file'}
+                    onChange={onMainPhotoSelected}
+                />
+            }
+
             <div className={style.data}>
                 <div className={style.data_header}>
                     <h2>
