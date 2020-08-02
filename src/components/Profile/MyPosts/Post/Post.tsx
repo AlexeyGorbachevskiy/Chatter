@@ -12,7 +12,7 @@ function Post(props: PostPropsType) {
         <div className={obj.old_posts}>
 
             <div className={obj.img_wrapper}>
-                <img className={obj.ava} src={'/img/default.png'} alt='Avatar'/>
+                <img className={obj.ava} src={process.env.PUBLIC_URL+'/img/default.png'} alt='Avatar'/>
             </div>
 
             <div className={obj.old_post_item}>

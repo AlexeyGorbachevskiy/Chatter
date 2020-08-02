@@ -5,7 +5,7 @@ import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import FriendsContainer from "./components/Friends/FriendsContainer";
-import {BrowserRouter, Redirect, Route, withRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import FindFriendsContainer from "./components/FindFriends/FindFriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -85,12 +85,12 @@ let AppContainer = compose<React.ComponentType>(
 
 export const Chatter: React.FC = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <React.StrictMode>
                 <Provider store={store}>
                     <AppContainer/>
                 </Provider>
             </React.StrictMode>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
