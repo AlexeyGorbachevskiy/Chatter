@@ -15,21 +15,17 @@ type FindFriendsPropsType = {
     isFetching: boolean
     follow: (userId: number) => void
     unfollow: (userId: number) => void
-    setFollowingInProgress:(isFollowingInProgress:boolean,userId:number)=>void
-    isFollowingInProgress:boolean
-    followingInProgress:Array<number>
-    followThunkCreator:(userId:number)=>void
-    unFollowThunkCreator:(userId:number)=>void
+    setFollowingInProgress: (isFollowingInProgress: boolean, userId: number) => void
+    isFollowingInProgress: boolean
+    followingInProgress: Array<number>
+    followThunkCreator: (userId: number) => void
+    unFollowThunkCreator: (userId: number) => void
 }
 
 
 function FindFriends(props: FindFriendsPropsType) {
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages: Array<number> = [];
-    for (let i = 1; i <= 10; i++) {
-        pages.push(i);
-    }
+    const portionSize=10;
 
     return (
 
@@ -62,7 +58,10 @@ function FindFriends(props: FindFriendsPropsType) {
                 }
 
                 <span className={obj.footer_wrapper}>
-                       <Paginator pages={pages} currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
+                       <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged}
+                                  pageSize={props.pageSize} totalUsersCount={props.totalUsersCount}
+                                  portionSize={portionSize}
+                       />
                 </span>
             </div>
         </div>
