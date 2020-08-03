@@ -1,6 +1,7 @@
 import {profileAPI} from "../API/API";
 import {RootState} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
+import {stopSubmit} from "redux-form";
 
 type initialStateType = typeof initialState
 
@@ -28,6 +29,7 @@ export type ProfileType = {
     userId: number
     lookingForAJob: boolean
     lookingForAJobDescription: string
+    aboutMe: string
     fullName: string
     contacts: ContactsType
     photos: PhotosType
@@ -108,7 +110,7 @@ const SET_STATUS = 'SET_STATUS';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 export const addPostActionCreator = (newPostText: string): AddPostACType => ({type: ADD_POST, newPostText});
 
-export const setUserProfileAC = (profile: ProfileType): SetUserProfileACType => ({type: SET_USER_PROFILE, profile});
+export const setUserProfileAC = (profile: any): SetUserProfileACType => ({type: SET_USER_PROFILE, profile});
 
 export const getProfileInfoThunkCreator = (userId: string)
     : ThunkAction<void, RootState, unknown, ProfileReducerActionTypes> => {
@@ -160,6 +162,26 @@ export const savePhotoThunkCreator = (file: any)
 
             if (response.data.resultCode === 0) {
                 dispatch(savePhotoSuccessAC(response.data.data.photos))
+            }
+
+        }
+    )
+}
+
+export const saveProfileThunkCreator = (formData: ProfileType)
+    : ThunkAction<void, RootState, unknown, ProfileReducerActionTypes> => {
+    return (
+        async (dispatch, getState) => {
+            const userId = getState().auth.data.id;
+            let response = await profileAPI.saveProfile(formData)
+
+            if (response.data.resultCode === 0) {
+                userId && dispatch(getProfileInfoThunkCreator(userId.toString()))
+            }
+            else{
+                const action= stopSubmit('profileSettings', {_error: response.data.messages[0]});
+                dispatch<any>(action)
+                return Promise.reject(response.data.messages[0])
             }
         }
     )

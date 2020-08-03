@@ -39,3 +39,16 @@ export const LoginInput = ({input, meta, ...props}: any) => {
         </>
     )
 }
+
+export const ProfileSettingsInput = ({input, meta, ...props}: any) => {
+    const hasError = meta.touched && meta.error;
+    return (
+        <>
+            <input
+                className={style.login_input + ' ' + (hasError && style.input_error)}
+                {...input} {...props}
+            />
+            {hasError && <span className={style.login_error_text}>{meta.error}</span>}
+        </>
+    )
+}

@@ -13,11 +13,6 @@ type ProfileInfo = {
 
 function ProfileInfo(props: ProfileInfo) {
 
-    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files!.length) {
-            props.savePhoto(e.target.files![0])
-        }
-    }
     return (
         <div className={style.data_wrapper}>
             <div className={style.ava_wrapper}>
@@ -32,15 +27,6 @@ function ProfileInfo(props: ProfileInfo) {
                 />
             </div>
 
-            {
-                props.isOwner &&
-                <input
-                    className={style.choose_img}
-                    type={'file'}
-                    onChange={onMainPhotoSelected}
-                />
-            }
-
             <div className={style.data}>
                 <div className={style.data_header}>
                     <h2>
@@ -54,13 +40,20 @@ function ProfileInfo(props: ProfileInfo) {
                     </div>
                     <div className={style.job_status}>
                         <p>Job search
-                            status: {props.profile?.lookingForAJob ? props.profile?.lookingForAJob : 'Looking for a job.'}</p>
+                            status: {props.profile?.lookingForAJob ? 'Looking for a job' : 'Indefined'}</p>
                     </div>
-                    <div className={style.job_description}>
-                        <p>Job
-                            description: {props.profile?.lookingForAJobDescription ? props.profile.lookingForAJobDescription : 'Looking for a frontend developer position.'}
-                        </p>
-                    </div>
+                    {
+                        props.profile?.lookingForAJob ?
+                            <div className={style.job_description}>
+                                <p>My professional skills:
+                                    {props.profile?.lookingForAJobDescription ?
+                                        props.profile.lookingForAJobDescription :
+                                        'JS, TS, React, Redux'}
+                                </p>
+                            </div>
+                    : ''
+                    }
+
                     <div className={style.contacts}>
                         <p>My
                             contacts: {props.profile?.contacts.twitter ? props.profile?.contacts.twitter : 'Oops.'}</p>

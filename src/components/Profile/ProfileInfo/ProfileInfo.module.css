@@ -24,6 +24,7 @@
     margin-left: 2%;
     grid-area: data;
     color: #ffffff;
+
     /*width: 100%;*/
     /*text-align: center;*/
 }
@@ -31,6 +32,15 @@
 .data_items {
     /*text-align: start;*/
     /*color: #ff0000;*/
+}
+.status{
+    margin-bottom: 1%;
+}
+.job_status{
+    margin-bottom: 1%;
+}
+.job_description{
+    margin-bottom: 1%;
 }
 
 .data_header {

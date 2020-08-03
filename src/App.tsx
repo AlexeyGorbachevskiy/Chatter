@@ -3,7 +3,6 @@ import './App.css';
 import Nav from './components/NavBar/Nav';
 import News from './components/News/News';
 import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
@@ -18,6 +17,7 @@ import {ThunkDispatch} from "redux-thunk";
 import {compose} from "redux";
 import {initializeAppThunkCreator} from "./redux/appReducer";
 import Preloader from "./components/Common/Preloader/Preloader";
+import SettingsContainer from "./components/Settings/SettingsContainer";
 
 class App extends React.Component<MapDispatchPropsType & MapStatePropsType, {}> {
 
@@ -41,7 +41,7 @@ class App extends React.Component<MapDispatchPropsType & MapStatePropsType, {}> 
                 <Route path='/messages' render={() => <MessagesContainer/>}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/music' render={() => <Music/>}/>
-                <Route path='/settings' render={() => <Settings/>}/>
+                <Route path='/settings' render={() => <SettingsContainer/>}/>
                 <Route path='/findFriends' render={() => <FindFriendsContainer/>}/>
                 <Route path='/login' render={() => <Login/>}/>
                 {/*<Route path='/profile' component={Profile}/>*/}
