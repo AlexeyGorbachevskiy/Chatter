@@ -142,13 +142,17 @@ export const getStatusThunkCreator = (userId: number)
 export const updateStatusThunkCreator = (status: string)
     : ThunkAction<void, RootState, unknown, ProfileReducerActionTypes> => {
     return (
-        (dispatch, getState) => {
-            profileAPI.updateStatus(status)
-                .then(response => {
-                    if (response.data.resultCode === 0) {
-                        dispatch(setStatusAC(status))
-                    }
-                })
+        async (dispatch, getState) => {
+            try{
+                const response = await profileAPI.updateStatus(status)
+                if (response.data.resultCode === 0) {
+                    dispatch(setStatusAC(status))
+                }
+            }
+            catch(error){
+                // dispatch error
+            }
+
         }
     )
 }
@@ -177,9 +181,8 @@ export const saveProfileThunkCreator = (formData: ProfileType)
 
             if (response.data.resultCode === 0) {
                 userId && dispatch(getProfileInfoThunkCreator(userId.toString()))
-            }
-            else{
-                const action= stopSubmit('profileSettings', {_error: response.data.messages[0]});
+            } else {
+                const action = stopSubmit('profileSettings', {_error: response.data.messages[0]});
                 dispatch<any>(action)
                 return Promise.reject(response.data.messages[0])
             }

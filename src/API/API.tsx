@@ -108,9 +108,9 @@ export const authAPI = {
             axiosInstance.get<GetAuthInfoResponseType>(`auth/me`)
         )
     },
-    login(email: string, password: string, rememberMe = false) {
+    login(email: string, password: string, rememberMe = false, captcha: string | undefined | null = null) {
         return (
-            axiosInstance.post(`auth/login`, {email, password, rememberMe})
+            axiosInstance.post(`auth/login`, {email, password, rememberMe, captcha})
         )
     },
     logout() {
@@ -118,6 +118,15 @@ export const authAPI = {
             axiosInstance.delete(`auth/login`)
         )
     }
+}
+
+
+export const securityAPI = {
+    getCaptchaUrl() {
+        return (
+            axiosInstance.get<{ url: string }>(`security/get-captcha-url`)
+        )
+    },
 }
 
 

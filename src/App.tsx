@@ -1,8 +1,6 @@
 import React from 'react';
 import './App.css';
 import Nav from './components/NavBar/Nav';
-import News from './components/News/News';
-import Music from './components/Music/Music';
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
@@ -39,8 +37,6 @@ class App extends React.Component<MapDispatchPropsType & MapStatePropsType, {}> 
                 <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                 <Route path='/friends' render={() => <FriendsContainer/>}/>
                 <Route path='/messages' render={() => <MessagesContainer/>}/>
-                <Route path='/news' render={() => <News/>}/>
-                <Route path='/music' render={() => <Music/>}/>
                 <Route path='/settings' render={() => <SettingsContainer/>}/>
                 <Route path='/findFriends' render={() => <FindFriendsContainer/>}/>
                 <Route path='/login' render={() => <Login/>}/>

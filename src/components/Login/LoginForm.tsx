@@ -42,6 +42,17 @@ function LoginForm(props: any) {
                 }
             </div>
 
+            {props.captchaUrl &&
+            <div className={style.captcha_wrapper}>
+                <img src={props.captchaUrl} alt="Captcha"/>
+                <Field name={'captcha'}
+                    // className={style.input}
+                       placeholder='Type symbols' component={LoginInput}
+                       type="text"
+                />
+            </div>
+            }
+
             <div className={style.login_btn_wrapper}>
                 <button className={style.login_btn}>Log In</button>
             </div>

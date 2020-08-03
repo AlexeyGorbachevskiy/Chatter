@@ -9,14 +9,14 @@ import {AuthReducerActionTypes, loginThunkCreator, logoutThunkCreator} from "../
 import {Redirect} from "react-router";
 
 
-const LoginReduxForm = reduxForm({
+const LoginReduxForm: any = reduxForm({
     form: 'login'
 })(LoginForm)
 
 
 function Login(props: any) {
     const onSubmit = (formData: any) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
 
     if (props.isAuth) {
@@ -26,32 +26,34 @@ function Login(props: any) {
 
     return (
         <div className={style.login_wrapper}>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
 }
 
 export type MapStatePropsType = {
     isAuth: boolean
+    captchaUrl: string | null
 }
 
 
 let mapStateToProps = (state: RootState): MapStatePropsType => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captchaUrl: state.auth.captchaUrl
     }
 }
 
 export type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean, captcha: string | null | undefined) => void
     logout: () => void
 }
 
 let mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, AuthReducerActionTypes>)
     : MapDispatchPropsType => {
     return {
-        login: (email, password, rememberMe) => {
-            dispatch(loginThunkCreator(email, password, rememberMe))
+        login: (email, password, rememberMe, captcha) => {
+            dispatch(loginThunkCreator(email, password, rememberMe, captcha))
         },
         logout: () => {
             dispatch(logoutThunkCreator())
