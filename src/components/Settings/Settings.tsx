@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {WithRouterPropsType} from "../Profile/ProfileContainer";
 import style from './Settings.module.css';
 import ProfileSettings from "./ProfileSettings";

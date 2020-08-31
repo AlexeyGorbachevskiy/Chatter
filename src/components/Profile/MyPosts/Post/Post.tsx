@@ -6,9 +6,17 @@ type PostPropsType = {
     message: string
     like: number
     profile: ProfileType | null
+    removePost: (postId: string) => void
+    postId: string
 }
 
 function Post(props: PostPropsType) {
+
+    const onRemovePost = (postId: string) => {
+        props.removePost(postId);
+    }
+
+
     return (
 
         <div className={obj.old_posts}>
@@ -27,14 +35,16 @@ function Post(props: PostPropsType) {
                     <textarea value={props.message} readOnly className={obj.textarea}
                               rows={4} cols={60} id='new_post_text_area' name='new_post_text_area'/>
                     <div className={obj.buttons_wrapper}>
-                        <div className={obj.like}><p>Like: {props.like}</p></div>
+                        {/*<div className={obj.like}><p>Like: {props.like}</p></div>*/}
 
                         <div className={obj.extra_wrapper}>
-                            <button className={obj.change_button}
-                                    value={'Edit'}><i className='fa fa-edit'/> Edit
-                            </button>
-                            <button className={obj.remove_button}
-                                    value={'Remove'}><i className='fa fa-trash'/> Remove
+                            {/*<button className={obj.change_button}*/}
+                            {/*        value={'Edit'}><i className='fa fa-edit'/> Edit*/}
+                            {/*</button>*/}
+                            <button
+                                onClick={()=>onRemovePost(props.postId)}
+                                className={obj.remove_button}
+                                value={'Remove'}><i className='fa fa-trash'/> Remove
                             </button>
                         </div>
                     </div>

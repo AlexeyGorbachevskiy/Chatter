@@ -8,6 +8,8 @@ export const PostTextarea = ({input, meta, ...props}: any) => {
             <textarea
                 className={style.post_textarea + ' ' + (hasError && style.input_error)}
                 {...input} {...props}
+                value={props.newPostText}
+
             />
             {hasError && <span>{meta.error}</span>}
         </>

@@ -14,6 +14,8 @@ let initialState = {
         {id: 1, name: 'Jeff Bezos'},
         {id: 2, name: 'Elon Musk'},
         {id: 3, name: 'Jordan Peterson'},
+        {id: 4, name: 'Mark Zuckerberg'},
+        {id: 5, name: 'Thomas Yorke'},
 
     ] as Array<DialogsDataArray>,
     messagesData: [

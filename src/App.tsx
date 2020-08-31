@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Nav from './components/NavBar/Nav';
 import FriendsContainer from "./components/Friends/FriendsContainer";
-import {BrowserRouter, HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
+import {HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import MessagesContainer from "./components/Messages/MessagesContainer";
 import FindFriendsContainer from "./components/FindFriends/FindFriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";

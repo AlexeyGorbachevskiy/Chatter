@@ -9,7 +9,7 @@
     align-items: center;
     overflow-y: auto;
     /*168*/
-    max-height: calc(100vh - 168px);
+    max-height: calc(100vh - 220px);
 }
 
 

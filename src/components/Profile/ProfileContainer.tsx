@@ -5,7 +5,7 @@ import {compose} from "redux";
 import {RootState} from "../../redux/redux-store";
 import {
     getProfileInfoThunkCreator, getStatusThunkCreator, ProfileReducerActionTypes,
-    ProfileType, savePhotoThunkCreator, updateStatusThunkCreator,
+    ProfileType, removePostActionCreator, savePhotoThunkCreator, updateStatusThunkCreator,
 } from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router";
 import {ThunkDispatch} from "redux-thunk";
@@ -81,7 +81,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, unknown, ProfileR
         getProfileInfo: (userId) => dispatch(getProfileInfoThunkCreator(userId)),
         getStatus: (userId: number) => dispatch(getStatusThunkCreator(userId)),
         updateStatus: (status: string) => dispatch(updateStatusThunkCreator(status)),
-        savePhoto:(file:any)=>dispatch(savePhotoThunkCreator(file))
+        savePhoto:(file:any)=>dispatch(savePhotoThunkCreator(file)),
     }
 }
 

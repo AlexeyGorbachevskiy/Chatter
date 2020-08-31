@@ -2,25 +2,21 @@ import React from 'react';
 import obj from './MyPosts.module.css';
 import Post from './Post/Post';
 import {AddNewPostFormRedux} from "./AddNewPostForm";
-import {ProfileType} from "../../../redux/profileReducer";
+import {PostDataArray, ProfileType} from "../../../redux/profileReducer";
 
-type PostDataArray = {
-    id: number
-    message: string
-    like: number
-}
 
 export type MyPostsPropsType = {
     postData: Array<PostDataArray>
     newPostText: string
     addPost: (newPostText: string) => void
+    removePost: (postId: string) => void
     profile: ProfileType | null
 }
 
 const MyPosts = React.memo((props: MyPostsPropsType) => {
 
     let postElements = props.postData.map((t: PostDataArray) => {
-        return <Post profile={props.profile} key={t.id} message={t.message} like={t.like}/>
+        return <Post postId={t.id} removePost={props.removePost} profile={props.profile} key={t.id} message={t.message} like={t.like}/>
     });
 
 

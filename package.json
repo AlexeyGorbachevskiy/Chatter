@@ -17,6 +17,7 @@
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux": "^3.6.0",
     "@types/redux-form": "^8.2.7",
+    "@types/uuid": "^8.3.0",
     "axios": "^0.19.2",
     "font-awesome": "^4.7.0",
     "react": "^16.13.1",
@@ -30,7 +31,8 @@
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "uuid": "^8.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

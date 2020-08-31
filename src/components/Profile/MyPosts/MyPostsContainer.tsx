@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    addPostActionCreator, PostDataArray, ProfileReducerActionTypes, ProfileType,
+    addPostActionCreator, PostDataArray, ProfileReducerActionTypes, ProfileType, removePostActionCreator,
 } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
@@ -15,6 +15,7 @@ type MapStatePropsType = {
 }
 type MapDispatchPropsType = {
     addPost: (newPostText:string) => void
+    removePost:(postId:string)=>void
 }
 
 
@@ -29,6 +30,7 @@ let mapStateToProps = (state: RootState): MapStatePropsType => {
 let mapDispatchToProps = (dispatch: Dispatch<ProfileReducerActionTypes>): MapDispatchPropsType => {
     return {
         addPost: (newPostText:string) => dispatch(addPostActionCreator(newPostText)),
+        removePost:(postId:string)=>dispatch(removePostActionCreator(postId))
     }
 }
 

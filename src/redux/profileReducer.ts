@@ -2,12 +2,14 @@ import {profileAPI} from "../API/API";
 import {RootState} from "./redux-store";
 import {ThunkAction} from "redux-thunk";
 import {stopSubmit} from "redux-form";
+import {v1} from "uuid";
+
 
 type initialStateType = typeof initialState
 
 
 export type PostDataArray = {
-    id: number
+    id: string
     message: string
     like: number
 }
@@ -37,22 +39,28 @@ export type ProfileType = {
 
 let initialState = {
     postData: [
-        {id: 1, message: 'Hey, how you doing?', like: 5},
-        {id: 2, message: 'What\'s cooking, good looking?', like: 8},
+        {id: v1(), message: 'Hey, how you doing?', like: 5},
+        {id: v1(), message: 'What\'s cooking, good looking?', like: 8},
     ] as Array<PostDataArray>,
     newPostText: '' as string,
     profile: null as ProfileType | any,
     status: '' as string
 }
 
-export type ProfileReducerActionTypes = AddPostACType | SetUserProfileACType | SetStatusACType | SavePhotoSuccessACType
+export type ProfileReducerActionTypes =
+    AddPostACType
+    | SetUserProfileACType
+    | SetStatusACType
+    | SavePhotoSuccessACType
+    | RemovePostACType
+
 
 const profileReducer = (state: initialStateType = initialState, action: ProfileReducerActionTypes): initialStateType => {
 
     switch (action.type) {
         case ADD_POST: {
             let postDataPushItem = {
-                id: 3,
+                id: v1(),
                 message: action.newPostText,
                 like: 9,
             }
@@ -60,6 +68,14 @@ const profileReducer = (state: initialStateType = initialState, action: ProfileR
                 ...state,
                 postData: [postDataPushItem, ...state.postData],
                 newPostText: '',
+            };
+
+        }
+        case REMOVE_POST: {
+
+            return {
+                ...state,
+                postData: state.postData.filter(el => el.id !== action.postId),
             };
 
         }
@@ -87,7 +103,11 @@ const profileReducer = (state: initialStateType = initialState, action: ProfileR
 export type AddPostACType = {
     type: typeof ADD_POST
     newPostText: string
+}
 
+export type RemovePostACType = {
+    type: typeof REMOVE_POST
+    postId: string
 }
 
 export type SetUserProfileACType = {
@@ -105,10 +125,13 @@ export type SavePhotoSuccessACType = {
 }
 
 const ADD_POST = 'ADD-POST';
+const REMOVE_POST = 'REMOVE-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const SAVE_PHOTO_SUCCESS = 'SAVE_PHOTO_SUCCESS';
 export const addPostActionCreator = (newPostText: string): AddPostACType => ({type: ADD_POST, newPostText});
+
+export const removePostActionCreator = (postId: string): RemovePostACType => ({type: REMOVE_POST, postId});
 
 export const setUserProfileAC = (profile: any): SetUserProfileACType => ({type: SET_USER_PROFILE, profile});
 
@@ -143,13 +166,12 @@ export const updateStatusThunkCreator = (status: string)
     : ThunkAction<void, RootState, unknown, ProfileReducerActionTypes> => {
     return (
         async (dispatch, getState) => {
-            try{
+            try {
                 const response = await profileAPI.updateStatus(status)
                 if (response.data.resultCode === 0) {
                     dispatch(setStatusAC(status))
                 }
-            }
-            catch(error){
+            } catch (error) {
                 // dispatch error
             }
 
